@@ -10,7 +10,7 @@ public class RandomMovement : MonoBehaviour //don't forget to change the script 
     public float range; //radius of sphere
 
     public Transform centrePoint; //centre of the area the agent wants to move around in
-    //instead of spawnArea you can set it as the transform of the agent if you don't care about a specific area
+    //instead of spawnAreaPos you can set it as the transform of the agent if you don't care about a specific area
 
     void Start()
     {

@@ -1,18 +1,19 @@
-﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyMoving : EnemyAbs
+public class SupportMoving : MMonoBehaviour
 {
     [SerializeField] protected NavMeshAgent agent;
-    [SerializeField] protected EnemyRadar enemyRadar;
+    [SerializeField] protected PlayerCtrl playerCtrl;
 
     [SerializeField] protected float timer = 0;
     [SerializeField] protected float delay = 3f;
 
-    [SerializeField] protected Vector3 spawnAreaPos;
-    //public Vector3 spawnAreaPos;
-    [SerializeField] protected float range = 15f;
+    [SerializeField] protected float range = 5f;
     [SerializeField] protected float validRange = 1f;
+
 
     void Update()
     {
@@ -20,35 +21,38 @@ public class EnemyMoving : EnemyAbs
     }
     protected virtual void RandomMoving()
     {
+        Vector3 point;
+
+        if (this.playerCtrl.PlayerMoving.IsMoving())
+        {
+            point = this.playerCtrl.transform.position;
+            agent.SetDestination(point);
+            return;
+        }
+
         this.timer += Time.deltaTime;
         if (this.timer >= this.delay) this.timer = this.delay;
         if (this.timer < this.delay) return;
 
-        Vector3 point;
-
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
-
-            if (enemyRadar.TargetNearest != null) point = enemyRadar.TargetNearest.transform.position;
-
-            else if (HelperSingleton.Instance.RandomPointOnNavMesh.RandomPoint(spawnAreaPos, range, validRange, out point))
+            if (HelperSingleton.Instance.RandomPointOnNavMesh.RandomPoint(this.playerCtrl.transform.position, range, validRange, out point))
             {
                 this.timer = 0;
                 Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f);
             }
-
             agent.SetDestination(point);
         }
     }
-    public virtual void SetSpawnAreaPos(Vector3 pos)
-    {
-        this.spawnAreaPos = pos;
-    }
+    //protected virtual float DistanceToPlayer()
+    //{
+    //    return Vector3.Distance(Vector3.Scale(this.transform.position, new Vector3(1, 0, 1)), Vector3.Scale(this.playerCtrl.transform.position, new Vector3(1, 0, 1)));
+    //}
     protected override void LoadComponents()
     {
         base.LoadComponents();
         this.LoadNavMeshAgent();
-        this.LoadEnemyRadar();
+        this.LoadPlayerCtrl();
     }
     protected virtual void LoadNavMeshAgent()
     {
@@ -57,10 +61,10 @@ public class EnemyMoving : EnemyAbs
         Debug.Log(transform.name + ": LoadNavMeshAgent", gameObject);
     }
 
-    protected virtual void LoadEnemyRadar()
+    protected virtual void LoadPlayerCtrl()
     {
-        if (this.enemyRadar != null) return;
-        this.enemyRadar = transform.parent.GetComponentInChildren<EnemyRadar>();
-        Debug.Log(transform.name + ": LoadEnemyRadar", gameObject);
+        if (this.playerCtrl != null) return;
+        this.playerCtrl = GameObject.Find("Player").GetComponent<PlayerCtrl>();
+        Debug.Log(transform.name + ": LoadPlayerCtrl", gameObject);
     }
 }

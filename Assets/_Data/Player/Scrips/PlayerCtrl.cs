@@ -13,12 +13,16 @@ public class PlayerCtrl : MMonoBehaviour
 
     [SerializeField] protected Camera mainCamera;
     public Camera MainCamera => this.mainCamera;
+
+    [SerializeField] protected PlayerMoving playerMoving;
+    public PlayerMoving PlayerMoving => this.playerMoving;
     protected override void LoadComponents()
     {
         base.LoadComponents();
         this.LoadAnimator();
         this.LoadRigidbody();
         this.LoadMainCamera();
+        this.LoadPlayerMoving();
     }
 
     protected virtual void LoadAnimator()
@@ -40,4 +44,11 @@ public class PlayerCtrl : MMonoBehaviour
         this.mainCamera = Camera.main;
         Debug.Log(transform.name + ": LoadMainCamera", gameObject);
     }
+    protected virtual void LoadPlayerMoving()
+    {
+        if (this.playerMoving != null) return;
+        this.playerMoving = GetComponentInChildren<PlayerMoving>();
+        Debug.Log(transform.name + ": LoadPlayerMoving", gameObject);
+    }
+
 }

@@ -25,7 +25,7 @@ public class PlayerMoving : PlayerAbs
         this.input.x = MInputManage.Instance.LoadHorizontal();
         this.input.y = MInputManage.Instance.LoadVertical();
     }
-    protected virtual bool IsMoving()
+    public virtual bool IsMoving()
     {
         this.isMoving = this.input != Vector2.zero;
         return this.input != Vector2.zero;
