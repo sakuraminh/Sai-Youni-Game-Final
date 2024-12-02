@@ -17,8 +17,7 @@ public class RandomPointOnNavMesh : MMonoBehaviour
             return true;
         }
 
-        //result = Vector3.zero;
-        this.RandomPoint(spawnPointPos, range, validRange, out result);
+        result = Vector3.zero;
         return false;
     }
 }

@@ -16,6 +16,9 @@ public class PlayerCtrl : MMonoBehaviour
 
     [SerializeField] protected PlayerMoving playerMoving;
     public PlayerMoving PlayerMoving => this.playerMoving;
+
+    [SerializeField] protected PlayerRadar playerRadar;
+    public PlayerRadar PlayerRadar => this.playerRadar;
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -23,8 +26,14 @@ public class PlayerCtrl : MMonoBehaviour
         this.LoadRigidbody();
         this.LoadMainCamera();
         this.LoadPlayerMoving();
+        this.LoadPlayerRadar();
     }
-
+    protected virtual void LoadPlayerRadar()
+    {
+        if (this.playerRadar != null) return;
+        this.playerRadar = GetComponentInChildren<PlayerRadar>();
+        Debug.Log(transform.name + ": LoadPlayerRadar", gameObject);
+    }
     protected virtual void LoadAnimator()
     {
         if (this.animator != null) return;

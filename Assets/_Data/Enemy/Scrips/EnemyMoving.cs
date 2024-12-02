@@ -10,7 +10,6 @@ public class EnemyMoving : EnemyAbs
     [SerializeField] protected float delay = 3f;
 
     [SerializeField] protected Vector3 spawnAreaPos;
-    //public Vector3 spawnAreaPos;
     [SerializeField] protected float range = 15f;
     [SerializeField] protected float validRange = 1f;
 
@@ -29,15 +28,28 @@ public class EnemyMoving : EnemyAbs
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
 
-            if (enemyRadar.TargetNearest != null) point = enemyRadar.TargetNearest.transform.position;
+            if (enemyRadar.TargetNearest != null)
+            {
+                if (NavMesh.SamplePosition(enemyRadar.TargetNearest.transform.position, out NavMeshHit hit, this.validRange, NavMesh.AllAreas))
+                {
+                    point = hit.position;
+                    agent.SetDestination(point);
+                    return;
+                }
+                point = this.spawnAreaPos;
+                agent.SetDestination(point);
+                return;
+
+            }
 
             else if (HelperSingleton.Instance.RandomPointOnNavMesh.RandomPoint(spawnAreaPos, range, validRange, out point))
             {
                 this.timer = 0;
                 Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f);
+                agent.SetDestination(point);
             }
 
-            agent.SetDestination(point);
+
         }
     }
     public virtual void SetSpawnAreaPos(Vector3 pos)
