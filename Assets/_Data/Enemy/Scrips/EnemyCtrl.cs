@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class EnemyCtrl : MMonoBehaviour
 {
+    [SerializeField] protected PlayerCtrl playerCtrl;
+    public PlayerCtrl PlayerCtrl => this.playerCtrl;
+
     [SerializeField] protected EnemyPrefab enemyPrefab;
     public EnemyPrefab EnemyPrefab => this.enemyPrefab;
 
@@ -16,8 +19,14 @@ public class EnemyCtrl : MMonoBehaviour
         base.LoadComponents();
         this.LoadenEmyPrefab();
         this.LoadEnemySpawner();
+        this.LoadPlayerCtrl();
     }
-
+    protected virtual void LoadPlayerCtrl()
+    {
+        if (this.playerCtrl != null) return;
+        this.playerCtrl = GameObject.Find("Player").GetComponent<PlayerCtrl>();
+        Debug.Log(transform.name + ": LoadPlayerCtrl", gameObject);
+    }
     protected virtual void LoadenEmyPrefab()
     {
         if (this.enemyPrefab != null) return;

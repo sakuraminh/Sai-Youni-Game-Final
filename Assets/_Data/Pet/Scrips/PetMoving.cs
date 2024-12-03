@@ -33,39 +33,43 @@ public class PetMoving : PetAbs
 
     protected virtual void RandomMoving()
     {
-        if (isMoving)
+        //if (isMoving)
+        // {
+        Vector3 point;
+
+        if (NavMesh.SamplePosition(this.petCtrl.PlayerCtrl.transform.position, out NavMeshHit hit, validRange, NavMesh.AllAreas))
         {
-            Vector3 point;
-
-            if (NavMesh.SamplePosition(this.petCtrl.PlayerCtrl.transform.position, out NavMeshHit hit, validRange, NavMesh.AllAreas))
+            if (this.petCtrl.PlayerCtrl.PlayerMoving.IsMoving)
             {
-                if (this.petCtrl.PlayerCtrl.PlayerMoving.IsMoving)
-                {
-                    point = this.petCtrl.PlayerCtrl.transform.position;
-                    agent.SetDestination(point);
-
-                    if (agent.remainingDistance > 20)
-                    {
-                        this.transform.parent.position = this.petCtrl.PlayerCtrl.transform.position;
-                    }
-                    return;
-                }
-            }
-
-            this.timer += Time.deltaTime;
-            if (this.timer >= this.delay) this.timer = this.delay;
-            if (this.timer < this.delay) return;
-
-            if (agent.remainingDistance <= agent.stoppingDistance)
-            {
-                if (HelperSingleton.Instance.RandomPointOnNavMesh.RandomPoint(this.petCtrl.PlayerCtrl.transform.position, range, validRange, out point))
-                {
-                    this.timer = 0;
-                    Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f);
-                }
+                point = this.petCtrl.PlayerCtrl.transform.position;
                 agent.SetDestination(point);
+                this.isMoving = this.petCtrl.PlayerCtrl.PlayerMoving.IsMoving;
+
+                if (agent.remainingDistance > 20)
+                {
+                    this.transform.parent.position = this.petCtrl.PlayerCtrl.transform.position;
+                }
+                return;
             }
         }
+
+        this.timer += Time.deltaTime;
+        if (this.timer >= this.delay) this.timer = this.delay;
+        if (this.timer < this.delay) return;
+
+        if (agent.remainingDistance <= agent.stoppingDistance)
+        {
+            if (HelperSingleton.Instance.RandomPointOnNavMesh.RandomPoint(this.petCtrl.PlayerCtrl.transform.position, range, validRange, out point))
+            {
+                this.timer = 0;
+                Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f);
+            }
+            agent.SetDestination(point);
+            this.isMoving = true;
+            return;
+        }
+        this.isMoving = false;
+        //}
     }
 
     protected virtual void SetAgent()

@@ -19,11 +19,6 @@ public abstract class DameReceive : MMonoBehaviour
         base.OnEnable();
         this.Reborn();
     }
-
-
-
-    //============================================================================================================================================
-
     protected abstract void OnHurt();
     protected abstract void OnDead();
 
@@ -54,6 +49,4 @@ public abstract class DameReceive : MMonoBehaviour
     {
         this.currenHp = this.maxHp;
     }
-
-    //============================================================================================================================================
 }

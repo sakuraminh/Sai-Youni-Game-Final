@@ -8,14 +8,15 @@ public class Radar<T> : MMonoBehaviour where T : MMonoBehaviour
     public T TargetNearest => this.targetNearest;
 
     [SerializeField] protected List<T> targetChecks = new();
+    public List<T> TargetChecks => this.targetChecks;
 
     protected virtual void Update()
     {
         this.FindTargetByDistance(targetChecks);
     }
-    protected virtual void FindTargetByDistance(List<T> targetCheck)
+    protected virtual void FindTargetByDistance(List<T> targetChecks)
     {
-        if (this.targetChecks.Count == 0)
+        if (targetChecks.Count == 0)
         {
             this.targetNearest = default;
             return;
@@ -24,7 +25,7 @@ public class Radar<T> : MMonoBehaviour where T : MMonoBehaviour
         float distanceNearest = Mathf.Infinity;
         float distancePlayer = 0;
 
-        foreach (T target in this.targetChecks)
+        foreach (T target in targetChecks)
         {
             distancePlayer = Vector3.Distance(transform.parent.position, target.transform.parent.position);
             if (distancePlayer < distanceNearest)
