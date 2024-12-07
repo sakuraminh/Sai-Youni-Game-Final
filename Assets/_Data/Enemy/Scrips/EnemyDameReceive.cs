@@ -47,8 +47,10 @@ public class EnemyDameReceive : DameReceive
     }
     protected virtual void CallDespawn()
     {
+        this.RemoveTargetCheckFromEnemy(this.prefabCtrl.EnemyCheck);
+        this.RemoveTargetCheckFromPlayer(this.prefabCtrl.EnemyCheck);
         this.prefabCtrl.Enemy.Despawn.DoDespawn();
-        this.RemoveTargetChecks(this.prefabCtrl.EnemyCheck);
+
     }
 
     protected override void Reborn()
@@ -57,9 +59,18 @@ public class EnemyDameReceive : DameReceive
         this.capsuleCollider.enabled = true;
     }
 
-    protected virtual void RemoveTargetChecks(EnemyCheck targetCheck)
+    protected virtual void RemoveTargetCheckFromPlayer(EnemyCheck targetCheck)
     {
         this.prefabCtrl.EnemyCtrl.PlayerCtrl.PlayerRadar.TargetChecks.Remove(targetCheck);
+    }
+    protected virtual void RemoveTargetCheckFromEnemy(EnemyCheck targetCheck)
+    {
+        foreach (EnemySpawnArea enemySpawnArea in this.prefabCtrl.EnemyCtrl.EnemySpawnAreasList.EnemySpawnAreas)
+        {
+            if (enemySpawnArea.GetEnemyPrefabByName().GetName() != targetCheck.transform.parent.GetComponent<Enemy>().GetName()) continue;
+
+            enemySpawnArea.Enemies.Remove(targetCheck.transform.parent.GetComponent<Enemy>());
+        }
     }
 
     protected override void LoadComponents()

@@ -12,6 +12,8 @@ public class PetCtrl : MMonoBehaviour
 
     [SerializeField] protected PetAttackPoint petAttackPoint;
     public PetAttackPoint PetAttackPoint => this.petAttackPoint;
+    [SerializeField] protected Helper helper;
+    public Helper Helper => this.helper;
 
     protected override void LoadComponents()
     {
@@ -19,8 +21,15 @@ public class PetCtrl : MMonoBehaviour
         this.LoadPlayerCtrl();
         this.LoadEffectCtrl();
         this.LoadPetAttackPoint();
+        this.LoadHelper();
     }
 
+    protected virtual void LoadHelper()
+    {
+        if (this.helper != null) return;
+        this.helper = GameObject.Find("Helper").GetComponent<Helper>();
+        Debug.Log(transform.name + ": LoadHelper", gameObject);
+    }
 
     protected virtual void LoadPetAttackPoint()
     {

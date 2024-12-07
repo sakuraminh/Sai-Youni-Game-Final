@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerSelect : PlayerAbs
 {
@@ -13,9 +11,11 @@ public class PlayerSelect : PlayerAbs
     }
     public virtual void Selecting()
     {
-        if (HelperSingleton.Instance.InputManage.GetMouseButtonDown0())
+        if (EventSystem.current.IsPointerOverGameObject()) return;
+
+        if (playerCtrl.Helper.InputManage.GetMouseButtonDown0())
         {
-            Ray ray = Camera.main.ScreenPointToRay(HelperSingleton.Instance.InputManage.MousePosition());
+            Ray ray = Camera.main.ScreenPointToRay(playerCtrl.Helper.InputManage.MousePosition());
 
             RaycastHit hit;
 

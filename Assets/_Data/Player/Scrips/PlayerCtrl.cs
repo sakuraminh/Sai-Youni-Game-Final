@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerCtrl : MMonoBehaviour
@@ -19,6 +16,9 @@ public class PlayerCtrl : MMonoBehaviour
 
     [SerializeField] protected PlayerRadar playerRadar;
     public PlayerRadar PlayerRadar => this.playerRadar;
+
+    [SerializeField] protected Helper helper;
+    public Helper Helper => this.helper;
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -27,6 +27,14 @@ public class PlayerCtrl : MMonoBehaviour
         this.LoadMainCamera();
         this.LoadPlayerMoving();
         this.LoadPlayerRadar();
+        this.LoadHelper();
+    }
+
+    protected virtual void LoadHelper()
+    {
+        if (this.helper != null) return;
+        this.helper = GameObject.Find("Helper").GetComponent<Helper>();
+        Debug.Log(transform.name + ": LoadHelper", gameObject);
     }
     protected virtual void LoadPlayerRadar()
     {

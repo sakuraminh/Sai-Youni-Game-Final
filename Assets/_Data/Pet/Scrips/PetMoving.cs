@@ -59,7 +59,7 @@ public class PetMoving : PetAbs
 
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
-            if (HelperSingleton.Instance.RandomPointOnNavMesh.RandomPoint(this.petCtrl.PlayerCtrl.transform.position, range, validRange, out point))
+            if (petCtrl.Helper.RandomPointOnNavMesh.RandomPoint(this.petCtrl.PlayerCtrl.transform.position, range, validRange, out point))
             {
                 this.timer = 0;
                 Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f);

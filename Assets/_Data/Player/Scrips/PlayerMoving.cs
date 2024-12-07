@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class PlayerMoving : PlayerAbs
 {
@@ -17,20 +18,35 @@ public class PlayerMoving : PlayerAbs
 
     protected virtual void Update()
     {
+        //this.CheckUI();
         this.UpdateAnimator();
+
     }
     protected virtual void FixedUpdate()
     {
         this.Moving();
     }
+
+    //protected virtual void CheckUI()
+    //{
+    //    if (EventSystem.current.IsPointerOverGameObject())
+    //    {
+    //        this.isMoving = false;
+    //        return;
+    //    }
+    //    this.isMoving = true;
+    //}
     protected virtual void UpdateAnimator()
     {
         this.playerCtrl.Animator.SetBool("isMoving", this.isMoving);
     }
     protected virtual void Moving()
     {
+
         if (this.isMoving)
         {
+            //if (EventSystem.current.IsPointerOverGameObject()) return;
+
             Vector3 nextPos = Vector3.MoveTowards(transform.parent.position, this.targetPosition, moveSpeed * Time.deltaTime);
 
             if (Physics.Raycast(new Vector3(nextPos.x, nextPos.y + 10f, nextPos.z), Vector3.down, out RaycastHit hit, Mathf.Infinity, ground))

@@ -1,8 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
 using UnityEngine;
-using UnityEngine.AI;
 
 public abstract class EnemySpawnArea : EnemyAbs
 {
@@ -13,7 +10,7 @@ public abstract class EnemySpawnArea : EnemyAbs
     [SerializeField] protected int maxSpawn = 10;
 
     [SerializeField] protected float range = 100f;
-    [SerializeField] protected float validRange = 5f;
+    [SerializeField] protected float validRange = 100;
 
     protected override void Start()
     {
@@ -30,7 +27,7 @@ public abstract class EnemySpawnArea : EnemyAbs
         if (this.enemies.Count >= 10) return;
         Vector3 point;
 
-        if (HelperSingleton.Instance.RandomPointOnNavMesh.RandomPoint(transform.position, range, validRange, out point))
+        if (EnemyCtrl.Helper.RandomPointOnNavMesh.RandomPoint(transform.position, range, validRange, out point))
         {
             Enemy newEnemy = this.EnemyCtrl.EnemySpawner.Spawn(this.GetEnemyPrefabByName(), point);
             newEnemy.EnemyPrefabCtrl.EnemyMoving.SetSpawnAreaPos(point);

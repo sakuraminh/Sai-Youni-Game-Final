@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class HelperSingleton : MSingleton<HelperSingleton>
+public class Helper : MMonoBehaviour
 {
     [SerializeField] protected RandomPointOnNavMesh randomPointOnNavMesh;
     public RandomPointOnNavMesh RandomPointOnNavMesh => this.randomPointOnNavMesh;

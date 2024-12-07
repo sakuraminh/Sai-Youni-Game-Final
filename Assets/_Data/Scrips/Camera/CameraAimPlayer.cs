@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraAimPlayer : MMonoBehaviour
 {
@@ -18,6 +19,7 @@ public class CameraAimPlayer : MMonoBehaviour
 
     void Update()
     {
+        if (EventSystem.current.IsPointerOverGameObject()) return;
         // Zoom in/out bằng cuộn chuột
         currentZoom -= Input.GetAxis("Mouse ScrollWheel") * zoomSpeed;
         currentZoom = Mathf.Clamp(currentZoom, minZoom, maxZoom);

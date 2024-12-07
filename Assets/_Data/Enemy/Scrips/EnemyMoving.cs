@@ -42,7 +42,7 @@ public class EnemyMoving : EnemyAbs
 
             }
 
-            else if (HelperSingleton.Instance.RandomPointOnNavMesh.RandomPoint(spawnAreaPos, range, validRange, out point))
+            else if (EnemyCtrl.Helper.RandomPointOnNavMesh.RandomPoint(spawnAreaPos, range, validRange, out point))
             {
                 this.timer = 0;
                 Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f);
