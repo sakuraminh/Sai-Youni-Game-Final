@@ -6,7 +6,7 @@ public abstract class PetAbs : MMonoBehaviour
 {
     [SerializeField] protected PetCtrl petCtrl;
     public PetCtrl PetCtrl => this.petCtrl;
-
+    #region LoadComponents
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -19,4 +19,5 @@ public abstract class PetAbs : MMonoBehaviour
         this.petCtrl = transform.root.GetComponent<PetCtrl>();
         Debug.Log(transform.name + ": LoadPetCtrl", gameObject);
     }
+    #endregion
 }

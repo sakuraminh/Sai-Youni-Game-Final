@@ -24,40 +24,31 @@ public class EnemyMoving : EnemyAbs
         if (this.timer >= this.delay) this.timer = this.delay;
         if (this.timer < this.delay) return;
 
-        //Vector3 point;
-
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
             if (enemyRadar.TargetNearest != null)
             {
                 if (NavMesh.SamplePosition(enemyRadar.TargetNearest.transform.position, out NavMeshHit hit, this.validRange, NavMesh.AllAreas))
                 {
-                    //point = hit.position;
-                    //agent.SetDestination(point);
                     agent.SetDestination(hit.position);
                     return;
                 }
-                //point = this.spawnAreaPos;
-                //agent.SetDestination(point);
                 agent.SetDestination(this.spawnAreaPos);
                 return;
-
             }
-
             else if (EnemyCtrl.GameCtrl.Helper.RandomPointOnNavMesh.RandomPoint(spawnAreaPos, range, validRange, out Vector3 point))
             {
                 this.timer = 0;
                 Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f);
                 agent.SetDestination(point);
             }
-
-
         }
     }
     public virtual void SetSpawnAreaPos(Vector3 pos)
     {
         this.spawnAreaPos = pos;
     }
+    #region LoadComponents
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -77,4 +68,5 @@ public class EnemyMoving : EnemyAbs
         this.enemyRadar = transform.parent.GetComponentInChildren<EnemyRadar>();
         Debug.Log(transform.name + ": LoadEnemyRadar", gameObject);
     }
+    #endregion
 }

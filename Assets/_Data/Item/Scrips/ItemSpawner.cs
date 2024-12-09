@@ -19,7 +19,7 @@ public class ItemSpawner : Spawner<Item>
         Item newItem = this.Spawn(prefab, pos);
         newItem.gameObject.SetActive(true);
     }
-
+    #region LoadComponents
     override protected void LoadComponents()
     {
         base.LoadComponents();
@@ -32,5 +32,5 @@ public class ItemSpawner : Spawner<Item>
         this.itemCrl = transform.parent.GetComponent<ItemCrl>();
         Debug.Log(transform.name + ": LoadItemCrl", gameObject);
     }
-
+    #endregion
 }

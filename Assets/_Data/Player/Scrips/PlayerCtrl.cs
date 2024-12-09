@@ -17,11 +17,9 @@ public class PlayerCtrl : MMonoBehaviour
     [SerializeField] protected PlayerRadar playerRadar;
     public PlayerRadar PlayerRadar => this.playerRadar;
 
-
-
     [SerializeField] protected GameCtrl gameCtrl;
     public GameCtrl GameCtrl => this.gameCtrl;
-
+    #region LoadComponents
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -71,5 +69,5 @@ public class PlayerCtrl : MMonoBehaviour
         this.playerMoving = GetComponentInChildren<PlayerMoving>();
         Debug.Log(transform.name + ": LoadPlayerMoving", gameObject);
     }
-
+    #endregion
 }

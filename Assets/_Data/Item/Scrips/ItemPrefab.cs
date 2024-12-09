@@ -9,7 +9,6 @@ public class ItemPrefab : PoolPrefabs<Item>
         foreach (Item prefab in this.Prefabs)
         {
             if (prefab.name != name) continue;
-            Debug.Log("Item Found :" + prefab.name);
             return prefab;
         }
         return null;

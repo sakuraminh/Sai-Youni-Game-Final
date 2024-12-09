@@ -11,10 +11,16 @@ public class PlayerPickUpItem : PlayerAbs
         ItemCheck itemPickUp = item.GetComponent<ItemCheck>();
         if (itemPickUp == null) return;
         this.PickingItem();
+        CallDesspawn(item);
     }
 
     protected void PickingItem()
     {
         playerCtrl.GameCtrl.InventoryCtrl.InventoryManage.Inventories[0].AddItem(playerCtrl.GameCtrl.InventoryCtrl.InventoryManage.ItemProfile[0], 10);
+    }
+
+    protected virtual void CallDesspawn(Collider item)
+    {
+        item.transform.parent.GetComponent<ItemPrefabCtrl>().ItemDespawn.DoDespawn();
     }
 }

@@ -42,13 +42,6 @@ public abstract class DameReceive : MMonoBehaviour
         if (this.SetIsDead()) this.OnDead();
         else this.OnHurt();
     }
-
-    //protected virtual void ActAfterDead()
-    //{
-    //    if (this.SetIsDead()) this.OnDead();
-    //    else this.OnHurt();
-    //}
-
     public virtual bool SetIsDead()
     {
         return this.isDead = this.currenHp <= 0;
@@ -57,7 +50,7 @@ public abstract class DameReceive : MMonoBehaviour
     {
         this.currenHp = this.maxHp;
     }
-
+    #region LoadComponents
     override protected void LoadComponents()
     {
         base.LoadComponents();
@@ -79,4 +72,5 @@ public abstract class DameReceive : MMonoBehaviour
         this.prefabCtrl = transform.parent.GetComponent<EnemyPrefabCtrl>();
         Debug.Log(transform.name + ": LoadEnemyPrefabCtrl", gameObject);
     }
+    #endregion
 }

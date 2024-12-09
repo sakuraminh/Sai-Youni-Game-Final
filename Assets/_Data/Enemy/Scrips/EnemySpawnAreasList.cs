@@ -6,7 +6,7 @@ public class EnemySpawnAreasList : MMonoBehaviour
 {
     [SerializeField] protected List<EnemySpawnArea> enemySpawnAreas = new();
     public List<EnemySpawnArea> EnemySpawnAreas => this.enemySpawnAreas;
-
+    #region LoadComponents
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -22,4 +22,5 @@ public class EnemySpawnAreasList : MMonoBehaviour
         }
         Debug.Log(transform.name + ": LoadEnemySpawnAreas", gameObject);
     }
+    #endregion
 }

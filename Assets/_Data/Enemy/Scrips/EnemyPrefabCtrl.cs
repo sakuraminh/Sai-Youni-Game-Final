@@ -15,10 +15,7 @@ public class EnemyPrefabCtrl : MMonoBehaviour
 
     [SerializeField] protected EnemyCheck enemyCheck;
     public EnemyCheck EnemyCheck => enemyCheck;
-
-    [SerializeField] protected EnemyDropItem enemyDropItem;
-    public EnemyDropItem EnemyDropItem => enemyDropItem;
-
+    #region LoadComponents
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -26,14 +23,6 @@ public class EnemyPrefabCtrl : MMonoBehaviour
         this.LoadEnemy();
         this.LoadEnemyCtrl();
         this.LoadEnemyCheck();
-        this.LoadEnemyDropItem();
-    }
-
-    protected virtual void LoadEnemyDropItem()
-    {
-        if (this.enemyDropItem != null) return;
-        this.enemyDropItem = this.GetComponentInChildren<EnemyDropItem>();
-        Debug.Log(transform.name + ": LoadEnemyDropItem", gameObject);
     }
 
     protected virtual void LoadEnemyCheck()
@@ -61,4 +50,5 @@ public class EnemyPrefabCtrl : MMonoBehaviour
         this.enemyMoving = this.GetComponentInChildren<EnemyMoving>();
         Debug.Log(transform.name + ": LoadEnemyMoving", gameObject);
     }
+    #endregion
 }

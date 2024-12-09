@@ -5,9 +5,8 @@ using UnityEngine;
 public abstract class PlayerAbs : MMonoBehaviour
 {
     [Header("PlayerAbs")]
-
     [SerializeField] protected PlayerCtrl playerCtrl;
-
+    #region LoadComponents
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -20,4 +19,5 @@ public abstract class PlayerAbs : MMonoBehaviour
         this.playerCtrl = transform.root.GetComponent<PlayerCtrl>();
         Debug.Log(transform.name + ": LoadPlayerCtrl", gameObject);
     }
+    #endregion
 }
