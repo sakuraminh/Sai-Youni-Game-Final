@@ -16,7 +16,7 @@ public class EnemyAbs : MMonoBehaviour
     protected virtual void LoadEnemyCtrl()
     {
         if (this.enemyCtrl != null) return;
-        this.enemyCtrl = GetComponentInParent<EnemyCtrl>();
+        this.enemyCtrl = transform.root.GetComponent<EnemyCtrl>();
         Debug.Log(transform.name + ": LoadEnemyCtrl", gameObject);
     }
 }

@@ -37,17 +37,18 @@ public class PetMoving : PetAbs
         // {
         Vector3 point;
 
-        if (NavMesh.SamplePosition(this.petCtrl.PlayerCtrl.transform.position, out NavMeshHit hit, validRange, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(this.petCtrl.GameCtrl.PlayerCtrl.transform.position, out NavMeshHit hit, validRange, NavMesh.AllAreas))
         {
-            if (this.petCtrl.PlayerCtrl.PlayerMoving.IsMoving)
+            if (this.petCtrl.GameCtrl.PlayerCtrl.PlayerMoving.IsMoving)
             {
-                point = this.petCtrl.PlayerCtrl.transform.position;
+                point = this.petCtrl.GameCtrl.PlayerCtrl.transform.position;
                 agent.SetDestination(point);
-                this.isMoving = this.petCtrl.PlayerCtrl.PlayerMoving.IsMoving;
+                this.isMoving = this.petCtrl.GameCtrl.PlayerCtrl.PlayerMoving.IsMoving;
 
                 if (agent.remainingDistance > 20)
                 {
-                    this.transform.parent.position = this.petCtrl.PlayerCtrl.transform.position;
+                    this.transform.parent.position = this.petCtrl.GameCtrl.PlayerCtrl.transform.position;
+
                 }
                 return;
             }
@@ -59,7 +60,7 @@ public class PetMoving : PetAbs
 
         if (agent.remainingDistance <= agent.stoppingDistance)
         {
-            if (petCtrl.Helper.RandomPointOnNavMesh.RandomPoint(this.petCtrl.PlayerCtrl.transform.position, range, validRange, out point))
+            if (petCtrl.GameCtrl.Helper.RandomPointOnNavMesh.RandomPoint(this.petCtrl.GameCtrl.PlayerCtrl.transform.position, range, validRange, out point))
             {
                 this.timer = 0;
                 Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f);

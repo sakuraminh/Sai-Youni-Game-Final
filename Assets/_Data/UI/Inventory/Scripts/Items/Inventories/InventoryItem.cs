@@ -12,7 +12,7 @@ public abstract class InventoryItem : HotbarItem
         get
         {
             string hexColour = ColorUtility.ToHtmlStringRGB(rarity.TextColour);
-            return $"<color=#{hexColour}>{Name}</color>";
+            return $"<color=#{hexColour}>{name}</color>";
         }
     }
     public int SellPrice => sellPrice;

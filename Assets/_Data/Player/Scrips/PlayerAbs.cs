@@ -17,7 +17,7 @@ public abstract class PlayerAbs : MMonoBehaviour
     private void LoadPlayerCtrl()
     {
         if (this.playerCtrl != null) return;
-        this.playerCtrl = GetComponentInParent<PlayerCtrl>();
+        this.playerCtrl = transform.root.GetComponent<PlayerCtrl>();
         Debug.Log(transform.name + ": LoadPlayerCtrl", gameObject);
     }
 }

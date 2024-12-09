@@ -17,8 +17,11 @@ public class PlayerCtrl : MMonoBehaviour
     [SerializeField] protected PlayerRadar playerRadar;
     public PlayerRadar PlayerRadar => this.playerRadar;
 
-    [SerializeField] protected Helper helper;
-    public Helper Helper => this.helper;
+
+
+    [SerializeField] protected GameCtrl gameCtrl;
+    public GameCtrl GameCtrl => this.gameCtrl;
+
     protected override void LoadComponents()
     {
         base.LoadComponents();
@@ -27,15 +30,16 @@ public class PlayerCtrl : MMonoBehaviour
         this.LoadMainCamera();
         this.LoadPlayerMoving();
         this.LoadPlayerRadar();
-        this.LoadHelper();
+        this.LoadGameCtrl();
     }
 
-    protected virtual void LoadHelper()
+    protected virtual void LoadGameCtrl()
     {
-        if (this.helper != null) return;
-        this.helper = GameObject.Find("Helper").GetComponent<Helper>();
-        Debug.Log(transform.name + ": LoadHelper", gameObject);
+        if (this.gameCtrl != null) return;
+        this.gameCtrl = GameObject.Find("GameCtrl").GetComponent<GameCtrl>();
+        Debug.Log(transform.name + ": LoadGameCtrl", gameObject);
     }
+
     protected virtual void LoadPlayerRadar()
     {
         if (this.playerRadar != null) return;

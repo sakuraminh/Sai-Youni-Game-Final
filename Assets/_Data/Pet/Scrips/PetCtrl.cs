@@ -4,31 +4,28 @@ using UnityEngine;
 
 public class PetCtrl : MMonoBehaviour
 {
-    [SerializeField] protected PlayerCtrl playerCtrl;
-    public PlayerCtrl PlayerCtrl => this.playerCtrl;
-
-    [SerializeField] protected EffectCtrl effectCtrl;
-    public EffectCtrl EffectCtrl => this.effectCtrl;
+    [SerializeField] protected GameCtrl gameCtrl;
+    public GameCtrl GameCtrl => this.gameCtrl;
 
     [SerializeField] protected PetAttackPoint petAttackPoint;
     public PetAttackPoint PetAttackPoint => this.petAttackPoint;
-    [SerializeField] protected Helper helper;
-    public Helper Helper => this.helper;
+
+
+
 
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        this.LoadPlayerCtrl();
-        this.LoadEffectCtrl();
+        this.LoadGameCtrl();
         this.LoadPetAttackPoint();
-        this.LoadHelper();
+
     }
 
-    protected virtual void LoadHelper()
+    protected virtual void LoadGameCtrl()
     {
-        if (this.helper != null) return;
-        this.helper = GameObject.Find("Helper").GetComponent<Helper>();
-        Debug.Log(transform.name + ": LoadHelper", gameObject);
+        if (this.gameCtrl != null) return;
+        this.gameCtrl = GameObject.Find("GameCtrl").GetComponent<GameCtrl>();
+        Debug.Log(transform.name + ": LoadGameCtrl", gameObject);
     }
 
     protected virtual void LoadPetAttackPoint()
@@ -37,17 +34,4 @@ public class PetCtrl : MMonoBehaviour
         this.petAttackPoint = GetComponentInChildren<PetAttackPoint>();
         Debug.Log(transform.name + ": LoadPetAttackPoint", gameObject);
     }
-    protected virtual void LoadEffectCtrl()
-    {
-        if (this.effectCtrl != null) return;
-        this.effectCtrl = GameObject.Find("Effect").GetComponent<EffectCtrl>();
-        Debug.Log(transform.name + ": LoadEffectCtrl", gameObject);
-    }
-    protected virtual void LoadPlayerCtrl()
-    {
-        if (this.playerCtrl != null) return;
-        this.playerCtrl = GameObject.Find("Player").GetComponent<PlayerCtrl>();
-        Debug.Log(transform.name + ": LoadPlayerCtrl", gameObject);
-    }
-
 }

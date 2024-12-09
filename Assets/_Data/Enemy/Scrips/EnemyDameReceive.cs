@@ -1,22 +1,18 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyDameReceive : DameReceive
 {
-    [SerializeField] protected EnemyPrefabCtrl prefabCtrl;
-    public EnemyPrefabCtrl PrefabCtrl => this.prefabCtrl;
-
     protected override void OnDead()
     {
         this.CallDespawn();
         this.capsuleCollider.enabled = false;
 
+        PrefabCtrl.EnemyCtrl.GameCtrl.ItemCrl.ItemSpawner.ItemSpawn(this.enemyCtrl.GameCtrl.InventoryCtrl.InventoryManage.ItemProfile[0], transform.parent.position);
+
         //this.prefabCtrl.Animator.SetBool("isDead", prefabCtrl.EnemyDameReceive.IsDead);
         //Invoke(nameof(CallDespawn), 4f);
-
-        //InventoriesManager.Instance.AddItem(ItemCode.Gold, 1);
-        //InventoriesManager.Instance.AddItem(ItemCode.PlayerExp, 1);
     }
     protected override void OnHurt()
     {
@@ -26,19 +22,12 @@ public class EnemyDameReceive : DameReceive
     {
         this.OnAnimation(collider);
     }
-    protected void OnAnimation(Collider collider)
+    protected void OnAnimation(Collider collider) //sử dụng OnTriggerStay và kiểm tra activeSelf
     {
-        //this.SetHit(collider);
-        //this.prefabCtrl.Animator.SetBool("isHit", this.SetHit(collider));
-        //this.prefabCtrl.Agent.speed = 0.1f;
-        //Invoke(nameof(SetHitFalse), 0.2f);
     }
 
     protected void SetHitFalse()
     {
-        //this.isHit = false;
-        //this.prefabCtrl.Animator.SetBool("isHit", this.isHit);
-        //this.prefabCtrl.Agent.speed = 2;
     }
     protected virtual bool SetHit(Collider collider)
     {
@@ -47,7 +36,7 @@ public class EnemyDameReceive : DameReceive
     }
     protected virtual void CallDespawn()
     {
-        this.RemoveTargetCheckFromEnemy(this.prefabCtrl.EnemyCheck);
+        this.RemoveTargetCheckFromEnemySpawnAreas(this.prefabCtrl.EnemyCheck);
         this.RemoveTargetCheckFromPlayer(this.prefabCtrl.EnemyCheck);
         this.prefabCtrl.Enemy.Despawn.DoDespawn();
 
@@ -61,9 +50,9 @@ public class EnemyDameReceive : DameReceive
 
     protected virtual void RemoveTargetCheckFromPlayer(EnemyCheck targetCheck)
     {
-        this.prefabCtrl.EnemyCtrl.PlayerCtrl.PlayerRadar.TargetChecks.Remove(targetCheck);
+        this.prefabCtrl.EnemyCtrl.GameCtrl.PlayerCtrl.PlayerRadar.TargetChecks.Remove(targetCheck);
     }
-    protected virtual void RemoveTargetCheckFromEnemy(EnemyCheck targetCheck)
+    protected virtual void RemoveTargetCheckFromEnemySpawnAreas(EnemyCheck targetCheck)
     {
         foreach (EnemySpawnArea enemySpawnArea in this.prefabCtrl.EnemyCtrl.EnemySpawnAreasList.EnemySpawnAreas)
         {
@@ -73,19 +62,7 @@ public class EnemyDameReceive : DameReceive
         }
     }
 
-    protected override void LoadComponents()
-    {
-        base.LoadComponents();
-        this.LoadEnemyPrefabCtrl();
-        this.LoadCapsuleCollider();
-    }
-    protected virtual void LoadEnemyPrefabCtrl()
-    {
-        if (this.prefabCtrl != null) return;
-        this.prefabCtrl = transform.parent.GetComponent<EnemyPrefabCtrl>();
-        Debug.Log(transform.name + ": LoadEnemyPrefabCtrl", gameObject);
-    }
-    protected virtual void LoadCapsuleCollider()
+    protected override void LoadCapsuleCollider()
     {
         if (this.capsuleCollider != null) return;
         this.capsuleCollider = GetComponent<CapsuleCollider>();

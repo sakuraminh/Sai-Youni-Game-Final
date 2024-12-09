@@ -13,9 +13,9 @@ public class PlayerSelect : PlayerAbs
     {
         if (EventSystem.current.IsPointerOverGameObject()) return;
 
-        if (playerCtrl.Helper.InputManage.GetMouseButtonDown0())
+        if (playerCtrl.GameCtrl.Helper.InputManage.GetMouseButtonDown0())
         {
-            Ray ray = Camera.main.ScreenPointToRay(playerCtrl.Helper.InputManage.MousePosition());
+            Ray ray = Camera.main.ScreenPointToRay(playerCtrl.GameCtrl.Helper.InputManage.MousePosition());
 
             RaycastHit hit;
 

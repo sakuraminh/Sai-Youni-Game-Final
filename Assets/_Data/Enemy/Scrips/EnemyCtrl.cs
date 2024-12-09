@@ -4,20 +4,19 @@ using UnityEngine;
 
 public class EnemyCtrl : MMonoBehaviour
 {
-    [SerializeField] protected PlayerCtrl playerCtrl;
-    public PlayerCtrl PlayerCtrl => this.playerCtrl;
-
     [SerializeField] protected EnemyPrefab enemyPrefab;
     public EnemyPrefab EnemyPrefab => this.enemyPrefab;
 
     [SerializeField] protected EnemySpawner enemySpawner;
     public EnemySpawner EnemySpawner => this.enemySpawner;
 
-    [SerializeField] protected Helper helper;
-    public Helper Helper => this.helper;
-
     [SerializeField] protected EnemySpawnAreasList enemySpawnAreasList;
     public EnemySpawnAreasList EnemySpawnAreasList => this.enemySpawnAreasList;
+
+
+
+    [SerializeField] protected GameCtrl gameCtrl;
+    public GameCtrl GameCtrl => this.gameCtrl;
 
 
     protected override void LoadComponents()
@@ -25,9 +24,15 @@ public class EnemyCtrl : MMonoBehaviour
         base.LoadComponents();
         this.LoadenEmyPrefab();
         this.LoadEnemySpawner();
-        this.LoadPlayerCtrl();
-        this.LoadHelper();
         this.LoadEnemySpawnAreasList();
+        this.LoadGameCtrl();
+    }
+
+    protected virtual void LoadGameCtrl()
+    {
+        if (this.gameCtrl != null) return;
+        this.gameCtrl = GameObject.Find("GameCtrl").GetComponent<GameCtrl>();
+        Debug.Log(transform.name + ": LoadGameCtrl", gameObject);
     }
 
     protected virtual void LoadEnemySpawnAreasList()
@@ -37,18 +42,6 @@ public class EnemyCtrl : MMonoBehaviour
         Debug.Log(transform.name + ": LoadEnemySpawnAreasList", gameObject);
     }
 
-    protected virtual void LoadHelper()
-    {
-        if (this.helper != null) return;
-        this.helper = GameObject.Find("Helper").GetComponent<Helper>();
-        Debug.Log(transform.name + ": LoadHelper", gameObject);
-    }
-    protected virtual void LoadPlayerCtrl()
-    {
-        if (this.playerCtrl != null) return;
-        this.playerCtrl = GameObject.Find("Player").GetComponent<PlayerCtrl>();
-        Debug.Log(transform.name + ": LoadPlayerCtrl", gameObject);
-    }
     protected virtual void LoadenEmyPrefab()
     {
         if (this.enemyPrefab != null) return;

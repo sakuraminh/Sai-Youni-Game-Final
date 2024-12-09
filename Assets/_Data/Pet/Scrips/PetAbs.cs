@@ -16,7 +16,7 @@ public abstract class PetAbs : MMonoBehaviour
     protected virtual void LoadPetCtrl()
     {
         if (this.petCtrl != null) return;
-        this.petCtrl = GetComponentInParent<PetCtrl>();
+        this.petCtrl = transform.root.GetComponent<PetCtrl>();
         Debug.Log(transform.name + ": LoadPetCtrl", gameObject);
     }
 }

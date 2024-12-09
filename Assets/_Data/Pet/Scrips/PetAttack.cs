@@ -28,7 +28,7 @@ public class PetAttack : PetAbs
     protected virtual void Attacking()
     {
 
-        if (petCtrl.PlayerCtrl.PlayerRadar.TargetNearest != null && !this.petCtrl.PlayerCtrl.PlayerMoving.IsMoving)
+        if (petCtrl.GameCtrl.PlayerCtrl.PlayerRadar.TargetNearest != null && !this.petCtrl.GameCtrl.PlayerCtrl.PlayerMoving.IsMoving)
         {
             this.isAttack = true;
             this.Attack();
@@ -52,15 +52,15 @@ public class PetAttack : PetAbs
             Debug.Log("bullets not found");
             return;
         }
-        transform.parent.LookAt(petCtrl.PlayerCtrl.PlayerRadar.TargetNearest.transform);
+        transform.parent.LookAt(petCtrl.GameCtrl.PlayerCtrl.PlayerRadar.TargetNearest.transform);
 
-        Effect newBullet = petCtrl.EffectCtrl.EffectSpawner.Spawn(bulletPrefab, petCtrl.PetAttackPoint.transform.position, petCtrl.PetAttackPoint.transform.rotation);
+        Effect newBullet = petCtrl.GameCtrl.EffectCtrl.EffectSpawner.Spawn(bulletPrefab, petCtrl.PetAttackPoint.transform.position, petCtrl.PetAttackPoint.transform.rotation);
         newBullet.gameObject.SetActive(true);
     }
 
     protected virtual Effect GetBulletPrefabByName()
     {
-        foreach (Effect prefab in this.petCtrl.EffectCtrl.EffectPrefab.Prefabs)
+        foreach (Effect prefab in this.petCtrl.GameCtrl.EffectCtrl.EffectPrefab.Prefabs)
             if (prefab.GetName() == this.BulletName)
             {
                 //this.bullet = prefab;

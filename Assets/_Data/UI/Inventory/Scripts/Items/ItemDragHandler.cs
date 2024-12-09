@@ -37,7 +37,7 @@ public class ItemDragHandler : MMonoBehaviour, IPointerDownHandler, IDragHandler
 
             originalParent = transform.parent;
 
-            transform.SetParent(transform.parent.parent);
+            transform.SetParent(transform.parent.parent.parent.parent);
 
             canvasGroup.blocksRaycasts = false;
         }

@@ -27,7 +27,7 @@ public abstract class EnemySpawnArea : EnemyAbs
         if (this.enemies.Count >= 10) return;
         Vector3 point;
 
-        if (EnemyCtrl.Helper.RandomPointOnNavMesh.RandomPoint(transform.position, range, validRange, out point))
+        if (EnemyCtrl.GameCtrl.Helper.RandomPointOnNavMesh.RandomPoint(transform.position, range, validRange, out point))
         {
             Enemy newEnemy = this.EnemyCtrl.EnemySpawner.Spawn(this.GetEnemyPrefabByName(), point);
             newEnemy.EnemyPrefabCtrl.EnemyMoving.SetSpawnAreaPos(point);

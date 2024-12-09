@@ -14,7 +14,7 @@ public class InventoryItemDragHandler : ItemDragHandler
 
             if (eventData.hovered.Count == 0)
             {
-                InventorySlot thisSlot = ItemSlotUI as InventorySlot;
+                InventorySlot thisSlot = this.itemSlotUI as InventorySlot;
                 itemDestroyer.Activate(thisSlot.ItemSlot, thisSlot.SlotIndex);
             }
         }

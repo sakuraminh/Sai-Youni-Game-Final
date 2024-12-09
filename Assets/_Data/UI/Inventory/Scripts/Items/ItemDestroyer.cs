@@ -3,10 +3,11 @@ using UnityEngine;
 
 public class ItemDestroyer : MonoBehaviour
 {
-    [SerializeField] private Inventory inventory = null;
+    [SerializeField] protected InventoryItems inventory;
+    //[SerializeField] private Inventory inventory = null;
     [SerializeField] private TextMeshProUGUI areYouSureText = null;
 
-    private int slotIndex = 0;
+    [SerializeField] private int slotIndex = 0;
 
     private void OnDisable() => slotIndex = -1;
 

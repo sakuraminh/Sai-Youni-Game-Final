@@ -3,8 +3,9 @@ using UnityEngine.EventSystems;
 
 public class HotbarSlot : ItemSlotUI, IDropHandler
 {
-    [SerializeField] private Inventory inventory = null;
+    //[SerializeField] private Inventory inventory = null;
     //[SerializeField] private TextMeshProUGUI itemQuantityText = null;
+
 
     private HotbarItem slotItem = null;
 

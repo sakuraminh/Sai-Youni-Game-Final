@@ -7,6 +7,7 @@ public abstract class ItemSlotUI : MMonoBehaviour, IDropHandler
 {
     [SerializeField] protected Image itemIconImage;
     [SerializeField] protected TextMeshProUGUI itemQuantityText;
+    [SerializeField] protected InventoryBase inventory;
 
     public int SlotIndex { get; private set; }
 

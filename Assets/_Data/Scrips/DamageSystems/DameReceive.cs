@@ -6,13 +6,21 @@ using UnityEngine;
 
 public abstract class DameReceive : MMonoBehaviour
 {
+    [SerializeField] protected EnemyCtrl enemyCtrl;
+    public EnemyCtrl EnemyCtrl => this.enemyCtrl;
+
+    [SerializeField] protected EnemyPrefabCtrl prefabCtrl;
+    public EnemyPrefabCtrl PrefabCtrl => this.prefabCtrl;
+
     [SerializeField] protected CapsuleCollider capsuleCollider;
+
+    [SerializeField] protected int currenHp = 10;
+    [SerializeField] protected int maxHp = 10;
+
     [SerializeField] protected bool isImmortal = false;
     [SerializeField] protected bool isHit = false;
     [SerializeField] protected bool isDead = false;
     public bool IsDead => this.isDead;
-    [SerializeField] protected int currenHp = 10;
-    [SerializeField] protected int maxHp = 10;
 
     protected override void OnEnable()
     {
@@ -48,5 +56,27 @@ public abstract class DameReceive : MMonoBehaviour
     protected virtual void Reborn()
     {
         this.currenHp = this.maxHp;
+    }
+
+    override protected void LoadComponents()
+    {
+        base.LoadComponents();
+        this.LoadCapsuleCollider();
+        this.LoadEnemyCtrl();
+        this.LoadEnemyPrefabCtrl();
+    }
+    protected abstract void LoadCapsuleCollider();
+
+    protected virtual void LoadEnemyCtrl()
+    {
+        if (this.enemyCtrl != null) return;
+        this.enemyCtrl = transform.root.GetComponent<EnemyCtrl>();
+        Debug.Log(transform.name + ": LoadEnemyCtrl", gameObject);
+    }
+    protected virtual void LoadEnemyPrefabCtrl()
+    {
+        if (this.prefabCtrl != null) return;
+        this.prefabCtrl = transform.parent.GetComponent<EnemyPrefabCtrl>();
+        Debug.Log(transform.name + ": LoadEnemyPrefabCtrl", gameObject);
     }
 }
