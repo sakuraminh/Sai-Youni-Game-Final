@@ -10,11 +10,22 @@ public class EffectCtrl : MMonoBehaviour
     [SerializeField] protected EffectPrefab effectPrefab;
     public EffectPrefab EffectPrefab => this.effectPrefab;
 
+    [SerializeField] protected GameCtrl gameCtrl;
+    public GameCtrl GameCtrl => this.gameCtrl;
+
     protected override void LoadComponents()
     {
         base.LoadComponents();
         this.LoadEffectCtrl();
         this.LoadEffectPrefab();
+        this.LoadGameCtrl();
+    }
+
+    protected virtual void LoadGameCtrl()
+    {
+        if (this.gameCtrl != null) return;
+        this.gameCtrl = GameObject.Find("GameCtrl").GetComponent<GameCtrl>();
+        Debug.Log(transform.name + ": LoadGameCtrl", gameObject);
     }
     protected virtual void LoadEffectCtrl()
     {

@@ -7,6 +7,7 @@ public class BulletDameSender : DameSender
 {
     [SerializeField] protected SphereCollider sphereCollider;
     [SerializeField] protected BulletDespawn bulletDespawn;
+    public BulletDespawn BulletDespawn => this.bulletDespawn;
 
     protected override DameReceive SendDamage(Collider collider)
     {

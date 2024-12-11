@@ -7,14 +7,18 @@ public abstract class Despawner<T> : DespawnBase where T : PoolObj
 {
     [SerializeField] protected T parent;
     [SerializeField] protected Spawner<T> spawner;
-    [SerializeField] protected bool isDespawnByTime = true;
+
+    [SerializeField] protected float distanceToDespawn = 10;
+    [SerializeField] protected float distanceDespawn = 10;
     [SerializeField] protected float timeLife = 5;
     [SerializeField] protected float currentTime = 5;
 
+    [SerializeField] protected bool isDespawnByTime = true;
+    [SerializeField] protected bool isDespawnByDistance = true;
 
     protected virtual void Update()
     {
-        //Override
+        //
     }
 
     protected override void LoadComponents()
@@ -49,9 +53,11 @@ public abstract class Despawner<T> : DespawnBase where T : PoolObj
         this.DoDespawn();
         this.currentTime = this.timeLife;
     }
+    public abstract void DespawnByDistance();
 
     public override void DoDespawn()
     {
+        //Debug.Log("Despawn: " + this.parent, gameObject);
         this.spawner.Despawn(this.parent);
     }
 }

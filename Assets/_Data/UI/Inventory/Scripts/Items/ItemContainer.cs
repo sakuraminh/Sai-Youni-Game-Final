@@ -70,6 +70,36 @@ public class ItemContainer : IItemContainer
         return itemSlot;
     }
 
+    public void RemoveItemAt(ItemSlot itemSlot, int index)
+    {
+        if (itemSlots[index].item != null)
+        {
+            if (itemSlots[index].item == itemSlot.item)
+            {
+                if (itemSlots[index].quantity < itemSlot.quantity)
+                {
+                    itemSlot.quantity -= itemSlots[index].quantity;
+
+                    itemSlots[index] = new ItemSlot();
+                }
+                else
+                {
+                    itemSlots[index].quantity -= itemSlot.quantity;
+
+                    if (itemSlots[index].quantity == 0)
+                    {
+                        itemSlots[index] = new ItemSlot();
+
+                        OnItemsUpdated.Invoke();
+
+                        return;
+                    }
+                }
+                OnItemsUpdated.Invoke();
+            }
+        }
+    }
+
     public void RemoveItem(ItemSlot itemSlot)
     {
         for (int i = 0; i < itemSlots.Length; i++)

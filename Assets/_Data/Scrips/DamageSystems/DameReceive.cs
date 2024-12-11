@@ -15,7 +15,9 @@ public abstract class DameReceive : MMonoBehaviour
     [SerializeField] protected CapsuleCollider capsuleCollider;
 
     [SerializeField] protected int currenHp = 10;
+    public int CurrentHp => this.currenHp;
     [SerializeField] protected int maxHp = 10;
+    public int MaxHp => this.maxHp;
 
     [SerializeField] protected bool isImmortal = false;
     [SerializeField] protected bool isHit = false;
@@ -36,8 +38,11 @@ public abstract class DameReceive : MMonoBehaviour
     }
     public virtual void Receive(int dame, DameSender dameSender)
     {
+        //Debug.Log("Receive: " + dame, gameObject);
         if (!isImmortal) this.currenHp -= dame;
         if (currenHp < 0) currenHp = 0;
+        //if (currenHp > maxHp) currenHp = maxHp;
+
 
         if (this.SetIsDead()) this.OnDead();
         else this.OnHurt();

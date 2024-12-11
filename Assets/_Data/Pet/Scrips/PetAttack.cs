@@ -23,15 +23,22 @@ public class PetAttack : PetAbs
     }
     protected virtual void Attacking()
     {
-        if (petCtrl.GameCtrl.PlayerCtrl.PlayerRadar.TargetNearest != null && !this.petCtrl.GameCtrl.PlayerCtrl.PlayerMoving.IsMoving)
+        if (petCtrl.GameCtrl.PlayerCtrl.PlayerRadar.TargetNearest != null && !this.petCtrl.GameCtrl.PlayerCtrl.PlayerMoving.IsMoving && this.petCtrl.GameCtrl.PlayerCtrl.PlayerSelect.EnemyChecks.Count == 0)
         {
             this.isAttack = true;
-            this.Attack();
+            this.Attack(petCtrl.GameCtrl.PlayerCtrl.PlayerRadar.TargetNearest);
+            return;
+        }
+
+        if (this.petCtrl.GameCtrl.PlayerCtrl.PlayerSelect.EnemyChecks.Count != 0 && !this.petCtrl.GameCtrl.PlayerCtrl.PlayerMoving.IsMoving)
+        {
+            this.isAttack = true;
+            this.Attack(this.petCtrl.GameCtrl.PlayerCtrl.PlayerSelect.EnemyChecks[0]);
             return;
         }
         this.isAttack = false;
     }
-    protected virtual void Attack()
+    protected virtual void Attack(EnemyCheck enemyCheck)
     {
         this.timer += Time.deltaTime;
         if (this.timer < this.delay) return;
@@ -44,12 +51,11 @@ public class PetAttack : PetAbs
             Debug.Log("bullets not found");
             return;
         }
-        transform.parent.LookAt(petCtrl.GameCtrl.PlayerCtrl.PlayerRadar.TargetNearest.transform);
+        transform.parent.LookAt(enemyCheck.transform);
 
         Effect newBullet = petCtrl.GameCtrl.EffectCtrl.EffectSpawner.Spawn(bulletPrefab, petCtrl.PetAttackPoint.transform.position, petCtrl.PetAttackPoint.transform.rotation);
         newBullet.gameObject.SetActive(true);
     }
-
     protected virtual Effect GetBulletPrefabByName()
     {
         foreach (Effect prefab in this.petCtrl.GameCtrl.EffectCtrl.EffectPrefab.Prefabs)

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-public class EnemyMoving : EnemyAbs
+public class EnemyMoving : EnemyPrefabAbs
 {
     [SerializeField] protected NavMeshAgent agent;
     [SerializeField] protected EnemyRadar enemyRadar;

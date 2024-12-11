@@ -23,13 +23,14 @@ public class InventoryItemDragHandler : ItemDragHandler
     protected override void LoadComponents()
     {
         base.LoadComponents();
-        //this.LoadItemDestroyer();
+        this.LoadItemDestroyer();
     }
 
     protected virtual void LoadItemDestroyer()
     {
         if (this.itemDestroyer != null) return;
-        this.itemDestroyer = transform.parent.parent.parent.parent.parent.GetComponentInChildren<ItemDestroyer>();
+        //this.itemDestroyer = transform.parent.parent.parent.parent.parent.GetComponentInChildren<ItemDestroyer>();
+        this.itemDestroyer = transform.root.GetComponentInChildren<ItemDestroyer>();
         Debug.Log(transform.name + ": LoadItemDestroyer", gameObject);
     }
 }

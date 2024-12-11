@@ -6,11 +6,9 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public abstract class DameSender : MMonoBehaviour
 {
-    [SerializeField] protected int dame = 1;
+    [SerializeField] protected int dame = 2;
     [SerializeField] protected Rigidbody rb;
     [SerializeField] protected Collider _collider;
-
-    //============================================================================================================================================
 
     protected virtual void OnTriggerEnter(Collider collider)
     {
@@ -26,8 +24,6 @@ public abstract class DameSender : MMonoBehaviour
         damageReceiver.Receive(this.dame, this);
         return damageReceiver;
     }
-
-    //============================================================================================================================================
 
     protected override void LoadComponents()
     {

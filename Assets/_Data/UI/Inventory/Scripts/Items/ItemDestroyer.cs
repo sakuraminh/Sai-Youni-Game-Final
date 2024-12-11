@@ -1,15 +1,16 @@
 ﻿using TMPro;
 using UnityEngine;
 
-public class ItemDestroyer : MonoBehaviour
+public class ItemDestroyer : MMonoBehaviour
 {
+    [SerializeField] protected GameObject itemDestroyer;
     [SerializeField] protected InventoryItems inventory;
     //[SerializeField] private Inventory inventory = null;
     [SerializeField] private TextMeshProUGUI areYouSureText = null;
 
-    [SerializeField] private int slotIndex = 0;
+    [SerializeField] private int slotIndex;
 
-    private void OnDisable() => slotIndex = -1;
+    protected override void OnDisable() => slotIndex = -1;
 
     public void Activate(ItemSlot itemSlot, int slotIndex)
     {
@@ -17,14 +18,28 @@ public class ItemDestroyer : MonoBehaviour
 
         areYouSureText.text = $"Are you sure you wish to destroy {itemSlot.quantity}x {itemSlot.item.ColouredName}?";
 
-        gameObject.SetActive(true);
+        itemDestroyer.SetActive(true);
     }
 
     public void Destroy()
     {
         inventory.ItemContainer.RemoveAt(slotIndex);
 
-        gameObject.SetActive(false);
+        itemDestroyer.SetActive(false);
     }
+
+    override protected void LoadComponents()
+    {
+        base.LoadComponents();
+        this.LoadItemDestroyer();
+    }
+
+    protected virtual void LoadItemDestroyer()
+    {
+        if (this.itemDestroyer != null) return;
+        this.itemDestroyer = transform.Find("Canvas_DestroyItem").gameObject;
+        Debug.Log(transform.name + ": LoadItemDestroyer", gameObject);
+    }
+
 }
 

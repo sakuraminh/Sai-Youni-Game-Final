@@ -31,6 +31,7 @@ public abstract class EnemySpawnArea : EnemyAbs
         {
             Enemy newEnemy = this.EnemyCtrl.EnemySpawner.Spawn(this.GetEnemyPrefabByName(), point);
             newEnemy.EnemyPrefabCtrl.EnemyMoving.SetSpawnAreaPos(point);
+            //newEnemy.EnemyPrefabCtrl.EnemyHPUI.UpdateSlider();
             newEnemy.gameObject.SetActive(true);
             this.enemies.Add(newEnemy);
         }

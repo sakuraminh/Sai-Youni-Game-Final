@@ -8,9 +8,21 @@ public class EnemyDameReceive : DameReceive
     {
         this.OnAnimation(collider);
     }
+    public override void Receive(int dame, DameSender dameSender)
+    {
+        if (!isImmortal) this.currenHp -= dame;
+        if (this.currenHp < 0) this.currenHp = 0;
+
+        this.prefabCtrl.EnemyHPUI.UpdateSlider();
+
+
+        if (this.SetIsDead()) this.OnDead();
+        else this.OnHurt();
+    }
     protected override void OnDead()
     {
         this.CallDespawn();
+        //this.prefabCtrl.EnemyHPUI.UpdateSlider();
         this.capsuleCollider.enabled = false;
         PrefabCtrl.EnemyCtrl.GameCtrl.ItemCrl.ItemSpawner.ItemSpawn(this.enemyCtrl.GameCtrl.InventoryCtrl.InventoryManage.ItemProfile[0], transform.parent.position);
     }
@@ -32,14 +44,20 @@ public class EnemyDameReceive : DameReceive
     }
     protected virtual void CallDespawn()
     {
+        this.prefabCtrl.Enemy.Despawn.DoDespawn();
         this.RemoveTargetCheckFromEnemySpawnAreas(this.prefabCtrl.EnemyCheck);
         this.RemoveTargetCheckFromPlayer(this.prefabCtrl.EnemyCheck);
-        this.prefabCtrl.Enemy.Despawn.DoDespawn();
-
+        this.RemoveTargetCheckFromPlayerSelect(this.prefabCtrl.EnemyCheck);
     }
     protected virtual void RemoveTargetCheckFromPlayer(EnemyCheck targetCheck)
     {
         this.prefabCtrl.EnemyCtrl.GameCtrl.PlayerCtrl.PlayerRadar.TargetChecks.Remove(targetCheck);
+    }
+
+    protected virtual void RemoveTargetCheckFromPlayerSelect(EnemyCheck targetCheck)
+    {
+        targetCheck.transform.parent.transform.Find("EnemyModel").GetComponent<Renderer>().material.color = targetCheck.DefaultColor;
+        this.prefabCtrl.EnemyCtrl.GameCtrl.PlayerCtrl.PlayerSelect.EnemyChecks.Remove(targetCheck);
     }
     protected virtual void RemoveTargetCheckFromEnemySpawnAreas(EnemyCheck targetCheck)
     {
@@ -54,6 +72,7 @@ public class EnemyDameReceive : DameReceive
     {
         base.Reborn();
         this.capsuleCollider.enabled = true;
+        //this.prefabCtrl.EnemyHPUI.UpdateSlider();
     }
     #region LoadComponents
     protected override void LoadCapsuleCollider()

@@ -24,6 +24,11 @@ public class InventoryBase : MMonoBehaviour
     {
         ItemContainer.AddItem(new ItemSlot(item, quatity));
     }
+
+    public virtual void RemoveItem(InventoryItem item, int quatity, int index)
+    {
+        ItemContainer.RemoveItemAt(new ItemSlot(item, quatity), index);
+    }
 }
 
 

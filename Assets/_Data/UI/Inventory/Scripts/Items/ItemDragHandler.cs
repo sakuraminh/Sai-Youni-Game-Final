@@ -3,8 +3,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(CanvasGroup))]
-public class ItemDragHandler : MMonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler
+public class ItemDragHandler : MMonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
+    [SerializeField] protected UICtrl uICtrl;
+
     [SerializeField] protected HotbarItemEvent onMouseStartHoverItem;
     [SerializeField] protected VoidEvent onMouseEndHoverItem;
 
@@ -72,13 +74,36 @@ public class ItemDragHandler : MMonoBehaviour, IPointerDownHandler, IDragHandler
         onMouseEndHoverItem.Raise();
         isHovering = false;
     }
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            InventoryItem item = ItemSlotUI.SlotItem as InventoryItem;
+            InventorySlot inventorySlot = ItemSlotUI as InventorySlot;
+            uICtrl.GameCtrl.InventoryCtrl.InventoryItems.RemoveItem(item, 1, inventorySlot.SlotIndex);
 
+            //Debug.Log("Right Click");
+        }
+    }
+
+
+
+
+    #region LoadComponents
     protected override void LoadComponents()
     {
         base.LoadComponents();
         this.LoadItemSlotUI();
         this.LoadOnMouseStartHoverItem();
         this.LoadOnMouseEndHoverItem();
+        this.LoadUICtrl();
+    }
+
+    protected virtual void LoadUICtrl()
+    {
+        if (this.uICtrl != null) return;
+        this.uICtrl = transform.root.GetComponent<UICtrl>();
+        Debug.Log(transform.name + ": LoadUICtrl", gameObject);
     }
 
     protected virtual void LoadOnMouseEndHoverItem()
@@ -100,6 +125,6 @@ public class ItemDragHandler : MMonoBehaviour, IPointerDownHandler, IDragHandler
         Debug.Log(transform.name + ": LoadItemSlotUI", gameObject);
     }
 
-
+    #endregion
 }
 

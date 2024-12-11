@@ -5,4 +5,5 @@ using UnityEngine;
 
 public class EnemyRadar : Radar<PlayerCheck>
 {
+
 }

@@ -10,6 +10,9 @@ public class PetCtrl : MMonoBehaviour
     [SerializeField] protected PetAttackPoint petAttackPoint;
     public PetAttackPoint PetAttackPoint => this.petAttackPoint;
 
+    [SerializeField] protected PetAttack petAttack;
+    public PetAttack PetAttack => this.petAttack;
+
 
 
 
@@ -18,7 +21,15 @@ public class PetCtrl : MMonoBehaviour
         base.LoadComponents();
         this.LoadGameCtrl();
         this.LoadPetAttackPoint();
+        this.LoadPetAttack();
 
+    }
+
+    protected virtual void LoadPetAttack()
+    {
+        if (this.petAttack != null) return;
+        this.petAttack = GetComponentInChildren<PetAttack>();
+        Debug.Log(transform.name + ": LoadPetAttack", gameObject);
     }
 
     protected virtual void LoadGameCtrl()

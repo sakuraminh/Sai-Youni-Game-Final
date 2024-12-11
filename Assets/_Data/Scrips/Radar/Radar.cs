@@ -10,6 +10,12 @@ public class Radar<T> : MMonoBehaviour where T : MMonoBehaviour
     [SerializeField] protected List<T> targetChecks = new();
     public List<T> TargetChecks => this.targetChecks;
 
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        this.targetChecks.Clear();
+    }
+
     protected virtual void Update()
     {
         this.FindTargetByDistance(targetChecks);
@@ -38,7 +44,11 @@ public class Radar<T> : MMonoBehaviour where T : MMonoBehaviour
     private void OnTriggerEnter(Collider collider)
     {
         T targetCheck = collider.GetComponent<T>();
-        if (targetCheck == null) return;
+
+        if (targetCheck == null)
+        {
+            return;
+        }
         this.AddTargetCheck(targetCheck);
     }
 

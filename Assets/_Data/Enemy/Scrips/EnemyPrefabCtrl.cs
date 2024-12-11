@@ -15,6 +15,13 @@ public class EnemyPrefabCtrl : MMonoBehaviour
 
     [SerializeField] protected EnemyCheck enemyCheck;
     public EnemyCheck EnemyCheck => enemyCheck;
+
+    [SerializeField] protected EnemyDameReceive enemyDameReceive;
+    public EnemyDameReceive EnemyDameReceive => enemyDameReceive;
+
+    [SerializeField] protected EnemyHPUI enemyHPUI;
+    public EnemyHPUI EnemyHPUI => enemyHPUI;
+
     #region LoadComponents
     protected override void LoadComponents()
     {
@@ -23,6 +30,22 @@ public class EnemyPrefabCtrl : MMonoBehaviour
         this.LoadEnemy();
         this.LoadEnemyCtrl();
         this.LoadEnemyCheck();
+        this.LoadEnemyDameReceive();
+        this.LoadEnemyHPUI();
+    }
+
+    protected virtual void LoadEnemyHPUI()
+    {
+        if (this.enemyHPUI != null) return;
+        this.enemyHPUI = this.GetComponentInChildren<EnemyHPUI>();
+        Debug.Log(transform.name + ": LoadEnemyHPUI", gameObject);
+    }
+
+    protected virtual void LoadEnemyDameReceive()
+    {
+        if (this.enemyDameReceive != null) return;
+        this.enemyDameReceive = this.GetComponentInChildren<EnemyDameReceive>();
+        Debug.Log(transform.name + ": LoadEnemyDameReceive", gameObject);
     }
 
     protected virtual void LoadEnemyCheck()

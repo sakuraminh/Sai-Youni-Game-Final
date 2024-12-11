@@ -19,6 +19,13 @@ public class PlayerCtrl : MMonoBehaviour
 
     [SerializeField] protected GameCtrl gameCtrl;
     public GameCtrl GameCtrl => this.gameCtrl;
+
+    [SerializeField] protected PlayerSelect playerSelect;
+    public PlayerSelect PlayerSelect => this.playerSelect;
+
+
+
+
     #region LoadComponents
     protected override void LoadComponents()
     {
@@ -29,6 +36,14 @@ public class PlayerCtrl : MMonoBehaviour
         this.LoadPlayerMoving();
         this.LoadPlayerRadar();
         this.LoadGameCtrl();
+        this.LoadPlayerSelect();
+    }
+
+    protected virtual void LoadPlayerSelect()
+    {
+        if (this.playerSelect != null) return;
+        this.playerSelect = GetComponentInChildren<PlayerSelect>();
+        Debug.Log(transform.name + ": LoadPlayerSelect", gameObject);
     }
 
     protected virtual void LoadGameCtrl()
