@@ -10,6 +10,9 @@ public class Radar<T> : MMonoBehaviour where T : MMonoBehaviour
     [SerializeField] protected List<T> targetChecks = new();
     public List<T> TargetChecks => this.targetChecks;
 
+    [SerializeField] protected float distanceNearest;
+    public float DistanceNearest => this.distanceNearest;
+
     protected override void OnEnable()
     {
         base.OnEnable();
@@ -34,6 +37,7 @@ public class Radar<T> : MMonoBehaviour where T : MMonoBehaviour
         foreach (T target in targetChecks)
         {
             distancePlayer = Vector3.Distance(transform.parent.position, target.transform.parent.position);
+            this.distanceNearest = distancePlayer;
             if (distancePlayer < distanceNearest)
             {
                 distanceNearest = distancePlayer;

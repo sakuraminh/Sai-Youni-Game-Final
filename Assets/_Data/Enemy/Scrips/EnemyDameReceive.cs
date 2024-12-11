@@ -4,6 +4,18 @@ using UnityEngine;
 
 public class EnemyDameReceive : DameReceive
 {
+    [SerializeField] protected EnemyCtrl enemyCtrl;
+    public EnemyCtrl EnemyCtrl => this.enemyCtrl;
+
+    [SerializeField] protected EnemyPrefabCtrl prefabCtrl;
+    public EnemyPrefabCtrl PrefabCtrl => this.prefabCtrl;
+
+    [SerializeField] protected int currenHp = 0;
+    public int CurrentHp => this.currenHp;
+
+    [SerializeField] protected int maxHp = 100;
+    public int MaxHp => this.maxHp;
+
     protected override void OnTriggerEnter(Collider collider)
     {
         this.OnAnimation(collider);
@@ -19,10 +31,18 @@ public class EnemyDameReceive : DameReceive
         if (this.SetIsDead()) this.OnDead();
         else this.OnHurt();
     }
+    public override bool SetIsDead()
+    {
+        return this.isDead = this.currenHp <= 0;
+    }
+    protected override void Reborn()
+    {
+        this.currenHp = this.maxHp;
+        this.capsuleCollider.enabled = true;
+    }
     protected override void OnDead()
     {
         this.CallDespawn();
-        //this.prefabCtrl.EnemyHPUI.UpdateSlider();
         this.capsuleCollider.enabled = false;
         PrefabCtrl.EnemyCtrl.GameCtrl.ItemCrl.ItemSpawner.ItemSpawn(this.enemyCtrl.GameCtrl.InventoryCtrl.InventoryManage.ItemProfile[0], transform.parent.position);
     }
@@ -32,15 +52,6 @@ public class EnemyDameReceive : DameReceive
     }
     protected virtual void OnAnimation(Collider collider) //sử dụng OnTriggerStay và kiểm tra activeSelf
     {
-    }
-
-    protected virtual void SetHitFalse()
-    {
-    }
-    protected virtual bool SetHit(Collider collider)
-    {
-        DameSender sender = collider.GetComponent<DameSender>();
-        return this.isHit = sender != null;
     }
     protected virtual void CallDespawn()
     {
@@ -68,18 +79,31 @@ public class EnemyDameReceive : DameReceive
             enemySpawnArea.Enemies.Remove(targetCheck.transform.parent.GetComponent<Enemy>());
         }
     }
-    protected override void Reborn()
-    {
-        base.Reborn();
-        this.capsuleCollider.enabled = true;
-        //this.prefabCtrl.EnemyHPUI.UpdateSlider();
-    }
     #region LoadComponents
+
+    protected override void LoadComponents()
+    {
+        base.LoadComponents();
+        this.LoadEnemyCtrl();
+        this.LoadEnemyPrefabCtrl();
+    }
     protected override void LoadCapsuleCollider()
     {
         if (this.capsuleCollider != null) return;
         this.capsuleCollider = GetComponent<CapsuleCollider>();
         Debug.Log(transform.name + ": LoadEnemyCtrl", gameObject);
+    }
+    protected virtual void LoadEnemyCtrl()
+    {
+        if (this.enemyCtrl != null) return;
+        this.enemyCtrl = transform.root.GetComponent<EnemyCtrl>();
+        Debug.Log(transform.name + ": LoadEnemyCtrl", gameObject);
+    }
+    protected virtual void LoadEnemyPrefabCtrl()
+    {
+        if (this.prefabCtrl != null) return;
+        this.prefabCtrl = transform.parent.GetComponent<EnemyPrefabCtrl>();
+        Debug.Log(transform.name + ": LoadEnemyPrefabCtrl", gameObject);
     }
     #endregion
 }

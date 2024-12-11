@@ -22,6 +22,16 @@ public class EnemyPrefabCtrl : MMonoBehaviour
     [SerializeField] protected EnemyHPUI enemyHPUI;
     public EnemyHPUI EnemyHPUI => enemyHPUI;
 
+    [SerializeField] protected EnemyRadar enemyRadar;
+    public EnemyRadar EnemyRadar => enemyRadar;
+
+    [SerializeField] protected EnemyAttack enemyAttack;
+    public EnemyAttack EnemyAttack => enemyAttack;
+
+    [SerializeField] protected Transform attackPoint;
+    public Transform AttackPoint => attackPoint;
+
+
     #region LoadComponents
     protected override void LoadComponents()
     {
@@ -32,6 +42,30 @@ public class EnemyPrefabCtrl : MMonoBehaviour
         this.LoadEnemyCheck();
         this.LoadEnemyDameReceive();
         this.LoadEnemyHPUI();
+        this.LoadEnemyRadar();
+        this.LoadAttackPoint();
+        this.LoadEnemyAttack();
+    }
+
+    protected virtual void LoadEnemyAttack()
+    {
+        if (this.enemyAttack != null) return;
+        this.enemyAttack = this.GetComponentInChildren<EnemyAttack>();
+        Debug.Log(transform.name + ": LoadEnemyAttack", gameObject);
+    }
+
+    protected virtual void LoadAttackPoint()
+    {
+        if (this.attackPoint != null) return;
+        this.attackPoint = this.transform.Find("AttackPoint");
+        Debug.Log(transform.name + ": LoadAttackPoint", gameObject);
+    }
+
+    protected virtual void LoadEnemyRadar()
+    {
+        if (this.enemyRadar != null) return;
+        this.enemyRadar = this.GetComponentInChildren<EnemyRadar>();
+        Debug.Log(transform.name + ": LoadEnemyRadar", gameObject);
     }
 
     protected virtual void LoadEnemyHPUI()

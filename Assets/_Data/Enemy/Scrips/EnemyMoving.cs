@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class EnemyMoving : EnemyPrefabAbs
 {
     [SerializeField] protected NavMeshAgent agent;
+    public NavMeshAgent Agent => this.agent;
     [SerializeField] protected EnemyRadar enemyRadar;
 
     [SerializeField] protected float timer = 0;
@@ -13,6 +15,16 @@ public class EnemyMoving : EnemyPrefabAbs
     [SerializeField] protected float validRange = 1f;
 
     [SerializeField] protected Vector3 spawnAreaPos;
+    [SerializeField] protected bool isMoving = true;
+    public bool IsMoving => this.isMoving;
+
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        this.SetMoving(true);
+        this.agent.speed = 0.5f;
+        this.agent.SetDestination(this.spawnAreaPos);
+    }
 
     void Update()
     {
@@ -24,12 +36,14 @@ public class EnemyMoving : EnemyPrefabAbs
         if (this.timer >= this.delay) this.timer = this.delay;
         if (this.timer < this.delay) return;
 
-        if (agent.remainingDistance <= agent.stoppingDistance)
+        if (this.isMoving == true)
         {
+            this.agent.isStopped = false;
             if (enemyRadar.TargetNearest != null)
             {
                 if (NavMesh.SamplePosition(enemyRadar.TargetNearest.transform.position, out NavMeshHit hit, this.validRange, NavMesh.AllAreas))
                 {
+                    this.agent.speed = 5f;
                     agent.SetDestination(hit.position);
                     return;
                 }
@@ -38,11 +52,19 @@ public class EnemyMoving : EnemyPrefabAbs
             }
             else if (EnemyCtrl.GameCtrl.Helper.RandomPointOnNavMesh.RandomPoint(spawnAreaPos, range, validRange, out Vector3 point))
             {
+                this.agent.speed = 0.5f;
+
                 this.timer = 0;
                 Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f);
                 agent.SetDestination(point);
             }
         }
+        else if (this.isMoving == false) this.agent.isStopped = true;
+    }
+
+    public virtual void SetMoving(bool isMoving)
+    {
+        this.isMoving = isMoving;
     }
     public virtual void SetSpawnAreaPos(Vector3 pos)
     {
