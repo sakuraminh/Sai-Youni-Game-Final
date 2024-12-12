@@ -18,16 +18,26 @@ public class EnemyMoving : EnemyPrefabAbs
     [SerializeField] protected bool isMoving = true;
     public bool IsMoving => this.isMoving;
 
+
+
+    [SerializeField] protected float isMovingF = 0f;
+
+
+
     protected override void OnEnable()
     {
         base.OnEnable();
         this.SetMoving(true);
         this.agent.speed = 0.5f;
+        this.enemyPrefabCtrl.Animator.SetBool("isMoving", this.isMoving);
+        this.enemyPrefabCtrl.Animator.SetFloat("isMovingF", 0f);
+
         this.agent.SetDestination(this.spawnAreaPos);
     }
 
     void Update()
     {
+        this.UpdateSpeed();
         this.RandomMoving();
     }
     protected virtual void RandomMoving()
@@ -44,6 +54,8 @@ public class EnemyMoving : EnemyPrefabAbs
                 if (NavMesh.SamplePosition(enemyRadar.TargetNearest.transform.position, out NavMeshHit hit, this.validRange, NavMesh.AllAreas))
                 {
                     this.agent.speed = 5f;
+                    this.enemyPrefabCtrl.Animator.SetFloat("isMovingF", 5f);
+
                     agent.SetDestination(hit.position);
                     return;
                 }
@@ -53,6 +65,7 @@ public class EnemyMoving : EnemyPrefabAbs
             else if (EnemyCtrl.GameCtrl.Helper.RandomPointOnNavMesh.RandomPoint(spawnAreaPos, range, validRange, out Vector3 point))
             {
                 this.agent.speed = 0.5f;
+                this.enemyPrefabCtrl.Animator.SetFloat("isMovingF", 0.5f);
 
                 this.timer = 0;
                 Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f);
@@ -60,6 +73,10 @@ public class EnemyMoving : EnemyPrefabAbs
             }
         }
         else if (this.isMoving == false) this.agent.isStopped = true;
+    }
+    protected virtual void UpdateSpeed()
+    {
+        this.isMovingF = this.agent.speed;
     }
 
     public virtual void SetMoving(bool isMoving)

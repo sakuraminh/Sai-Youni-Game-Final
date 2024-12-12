@@ -23,18 +23,10 @@ public class EnemyAttack : EnemyPrefabAbs
         if (EnemyPrefabCtrl.EnemyRadar.TargetNearest != null && this.enemyPrefabCtrl.EnemyRadar.DistanceNearest <= RemainingDistance)
         {
             this.isAttack = true;
-            if (this.enemyPrefabCtrl.EnemyMoving.IsMoving == this.isAttack)
-            {
-                this.enemyPrefabCtrl.EnemyMoving.SetMoving(!this.isAttack);
-            }
             this.Attack(EnemyPrefabCtrl.EnemyRadar.TargetNearest);
             return;
         }
         this.isAttack = false;
-        if (this.enemyPrefabCtrl.EnemyMoving.IsMoving == this.isAttack)
-        {
-            this.enemyPrefabCtrl.EnemyMoving.SetMoving(!this.isAttack);
-        }
     }
     protected virtual void Attack(PlayerCheck enemyCheck)
     {

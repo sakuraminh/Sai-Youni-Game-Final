@@ -31,6 +31,9 @@ public class EnemyPrefabCtrl : MMonoBehaviour
     [SerializeField] protected Transform attackPoint;
     public Transform AttackPoint => attackPoint;
 
+    [SerializeField] protected Animator animator;
+    public Animator Animator => animator;
+
 
     #region LoadComponents
     protected override void LoadComponents()
@@ -45,6 +48,14 @@ public class EnemyPrefabCtrl : MMonoBehaviour
         this.LoadEnemyRadar();
         this.LoadAttackPoint();
         this.LoadEnemyAttack();
+        this.LoadAnimator();
+    }
+
+    protected virtual void LoadAnimator()
+    {
+        if (this.animator != null) return;
+        this.animator = this.GetComponentInChildren<Animator>();
+        Debug.Log(transform.name + ": LoadAnimator", gameObject);
     }
 
     protected virtual void LoadEnemyAttack()

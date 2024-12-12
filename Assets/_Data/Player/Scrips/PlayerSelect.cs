@@ -6,6 +6,9 @@ public class PlayerSelect : PlayerAbs
 {
     [SerializeField] protected List<EnemyCheck> enemyChecks = new();
     public List<EnemyCheck> EnemyChecks => this.enemyChecks;
+
+    [SerializeField] protected Vector3 targetPosition;
+    public Vector3 TargetPosition => this.targetPosition;
     protected virtual void Update()
     {
         this.Selecting();
@@ -34,6 +37,7 @@ public class PlayerSelect : PlayerAbs
                     //}
                     //this.enemyChecks.Clear();
                     playerCtrl.PlayerMoving.SetTargetPosition(hit.point);
+                    this.targetPosition = hit.point;
                 }
                 else if (hit.collider.gameObject.layer == LayerMask.NameToLayer("EnemyCheck"))
                 {
@@ -41,13 +45,12 @@ public class PlayerSelect : PlayerAbs
 
                     if (enemyCheck != null)
                     {
-                        if (this.enemyChecks.Count > 0)
-                        {
-                            this.enemyChecks[0].transform.parent.transform.Find("EnemyModel").GetComponent<Renderer>().material.color = this.enemyChecks[0].DefaultColor;
-                        }
+                        //if (this.enemyChecks.Count > 0)
+                        //{
+                        //    this.enemyChecks[0].transform.parent.transform.Find("EnemyModel").GetComponent<Renderer>().material.color = this.enemyChecks[0].DefaultColor;
+                        //}
                         this.enemyChecks.Clear();
                         this.enemyChecks.Add(enemyCheck);
-                        enemyCheck.transform.parent.transform.Find("EnemyModel").GetComponent<Renderer>().material.color = Color.red;
                     }
 
                 }

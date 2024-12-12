@@ -1,4 +1,4 @@
-using System;
+
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -33,22 +33,25 @@ public class PetMoving : PetAbs
         {
             if (this.petCtrl.GameCtrl.PlayerCtrl.PlayerMoving.IsMoving)
             {
-                agent.SetDestination(this.petCtrl.GameCtrl.PlayerCtrl.transform.position);
-                this.isMoving = this.petCtrl.GameCtrl.PlayerCtrl.PlayerMoving.IsMoving;
+                //agent.SetDestination(this.petCtrl.GameCtrl.PlayerCtrl.transform.position);
+                agent.SetDestination(hit.position);
+                this.isMoving = true;
 
-                if (agent.remainingDistance > 20)
-                {
-                    this.transform.parent.position = this.petCtrl.GameCtrl.PlayerCtrl.transform.position;
-                }
+                //if (agent.remainingDistance > 20)
+                //{
+                //    //this.transform.parent.position = this.petCtrl.GameCtrl.PlayerCtrl.transform.position;
+                //}
                 return;
             }
         }
-        this.timer += Time.deltaTime;
-        if (this.timer >= this.delay) this.timer = this.delay;
-        if (this.timer < this.delay) return;
 
-        if (agent.remainingDistance <= agent.stoppingDistance)
+        if (agent.remainingDistance <= agent.stoppingDistance + 1)
         {
+            this.timer += Time.deltaTime;
+            if (this.timer >= this.delay) this.timer = this.delay;
+            if (this.timer < this.delay) return;
+
+
             if (petCtrl.GameCtrl.Helper.RandomPointOnNavMesh.RandomPoint(this.petCtrl.GameCtrl.PlayerCtrl.transform.position, range, validRange, out Vector3 point))
             {
                 this.timer = 0;

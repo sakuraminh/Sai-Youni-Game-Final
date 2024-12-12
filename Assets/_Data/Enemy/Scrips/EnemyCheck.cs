@@ -10,15 +10,10 @@ public class EnemyCheck : Check
     {
         base.LoadComponents();
         this.SetLayer();
-        this.LoadDefaultColor();
     }
 
     protected virtual void SetLayer()
     {
         gameObject.layer = LayerMask.NameToLayer("EnemyCheck");
-    }
-    protected virtual void LoadDefaultColor()
-    {
-        defaultColor = transform.parent.transform.Find("EnemyModel").GetComponent<Renderer>().material.color;
     }
 }

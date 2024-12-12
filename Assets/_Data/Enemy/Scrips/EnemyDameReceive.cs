@@ -67,7 +67,6 @@ public class EnemyDameReceive : DameReceive
 
     protected virtual void RemoveTargetCheckFromPlayerSelect(EnemyCheck targetCheck)
     {
-        targetCheck.transform.parent.transform.Find("EnemyModel").GetComponent<Renderer>().material.color = targetCheck.DefaultColor;
         this.prefabCtrl.EnemyCtrl.GameCtrl.PlayerCtrl.PlayerSelect.EnemyChecks.Remove(targetCheck);
     }
     protected virtual void RemoveTargetCheckFromEnemySpawnAreas(EnemyCheck targetCheck)
