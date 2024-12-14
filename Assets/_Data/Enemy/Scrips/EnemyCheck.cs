@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class EnemyCheck : Check
 {
-    protected Color defaultColor;
-    public Color DefaultColor => this.defaultColor;
     override protected void LoadComponents()
     {
         base.LoadComponents();

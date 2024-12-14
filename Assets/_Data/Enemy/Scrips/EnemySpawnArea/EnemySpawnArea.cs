@@ -30,7 +30,7 @@ public abstract class EnemySpawnArea : EnemyAbs
         if (EnemyCtrl.GameCtrl.Helper.RandomPointOnNavMesh.RandomPoint(transform.position, range, validRange, out point))
         {
             Enemy newEnemy = this.EnemyCtrl.EnemySpawner.Spawn(this.GetEnemyPrefabByName(), point);
-            newEnemy.EnemyPrefabCtrl.EnemyMoving.SetSpawnAreaPos(point);
+            //newEnemy.EnemyPrefabCtrl.EnemyMoving.SetSpawnAreaPos(point);
             newEnemy.gameObject.SetActive(true);
             this.enemies.Add(newEnemy);
         }

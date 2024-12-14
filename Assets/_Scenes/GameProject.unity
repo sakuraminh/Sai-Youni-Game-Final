@@ -710,15 +710,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyCtrl: {fileID: 901738749}
   enemyPrefabCtrl: {fileID: 2097012417}
-  agent: {fileID: 2097012415}
-  enemyRadar: {fileID: 213962408}
   timer: 0
-  delay: 3
-  range: 15
-  validRange: 1
-  spawnAreaPos: {x: 0, y: 0, z: 0}
-  isMoving: 1
-  isMovingF: 0
+  delay: 8
+  patrolRange: 15
+  attackCooldown: 3
+  startPosition: {x: 0, y: 0, z: 0}
+  randomPatrolPoint: {x: 0, y: 0, z: 0}
+  attackTimer: 0
+  isMoving: 0
+  isAttacking: 0
+  currentState: 0
 --- !u!1 &19491888
 GameObject:
   m_ObjectHideFlags: 0
@@ -1111,11 +1112,9 @@ MonoBehaviour:
   enemyCtrl: {fileID: 901738749}
   enemyPrefabCtrl: {fileID: 2097012417}
   BulletName: Bullet01
-  RemainingDistance: 5
-  timer: 0
-  delay: 0.5
-  isAttack: 0
   bullet: {fileID: 0}
+  attackSpeed: 0
+  isAttack: 0
 --- !u!1001 &28675210
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2536,7 +2535,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.3
-  m_Speed: 8
+  m_Speed: 5
   m_Acceleration: 3.4028235e+38
   avoidancePriority: 50
   m_AngularSpeed: 3.4028235e+38
@@ -7664,7 +7663,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 30
+  m_Radius: 15
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &214229779
 GameObject:
@@ -12331,7 +12330,7 @@ Transform:
   m_GameObject: {fileID: 459661189}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.5, z: 0.6}
+  m_LocalPosition: {x: 0, y: 1.754, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -14356,6 +14355,7 @@ GameObject:
   - component: {fileID: 582196579}
   - component: {fileID: 582196578}
   - component: {fileID: 582196577}
+  - component: {fileID: 582196580}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -14449,6 +14449,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 582196575}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!54 &582196580
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 582196575}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &584250656
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -14885,6 +14912,75 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 599457265}
   m_CullTransparentMesh: 0
+--- !u!1 &606505274
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 606505275}
+  - component: {fileID: 606505277}
+  - component: {fileID: 606505278}
+  m_Layer: 0
+  m_Name: EnemyRadarAttack
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &606505275
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606505274}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2097012414}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &606505277
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606505274}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 5
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &606505278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606505274}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04065e9562b6fae4396beba4431bd974, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  targetNearest: {fileID: 0}
+  targetChecks: []
+  distanceNearest: 0
 --- !u!1 &610402550
 GameObject:
   m_ObjectHideFlags: 0
@@ -15557,7 +15653,7 @@ MonoBehaviour:
   targetPosition: {x: 0, y: 0, z: 0}
   ground:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   moveSpeed: 10
   isGround: 0
   isMoving: 0
@@ -45062,6 +45158,7 @@ Transform:
   - {fileID: 19282261}
   - {fileID: 867643903}
   - {fileID: 213962407}
+  - {fileID: 606505275}
   - {fileID: 980225397}
   - {fileID: 226560812}
   - {fileID: 1101357535}
@@ -45079,8 +45176,8 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 0.5
-  m_Acceleration: 8
+  m_Speed: 5
+  m_Acceleration: 6
   avoidancePriority: 50
   m_AngularSpeed: 10000
   m_StoppingDistance: 0
@@ -45127,6 +45224,8 @@ MonoBehaviour:
   enemyAttack: {fileID: 28390295}
   attackPoint: {fileID: 459661190}
   animator: {fileID: 969871581843891488}
+  meshAgent: {fileID: 2097012415}
+  enemyRadarAttack: {fileID: 606505278}
 --- !u!1001 &2097871025
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48996,13 +49095,7 @@ Animator:
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
-  m_WarningMessage: "\nBinding warning: Some generic clip(s) animate transforms that
-    are already bound by a Humanoid avatar. These transforms can only be changed
-    by Humanoid clips.\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftFoot'\n\tTransform
-    'mixamorig:LeftHandIndex1'\n\tTransform 'mixamorig:RightHandRing2'\n\tTransform
-    'mixamorig:Spine1'\n\tTransform 'mixamorig:LeftToeBase'\n\tTransform 'mixamorig:RightArm'\n\tTransform
-    'mixamorig:LeftLeg'\n\tTransform 'mixamorig:LeftHandMiddle3'\n\tTransform 'mixamorig:LeftShoulder'\n\tand
-    more ...\n\tFrom animation clip 'mixamo.com'"
+  m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0

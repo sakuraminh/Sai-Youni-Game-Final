@@ -1,11 +1,10 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyRadar : Radar<PlayerCheck>
+public class EnemyRadarAttack : Radar<PlayerCheck>
 {
-    public virtual bool PlayerInSightRange()
+    public virtual bool PlayerInAttackRange()
     {
         return this.targetNearest != null;
     }

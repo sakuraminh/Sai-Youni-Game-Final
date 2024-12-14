@@ -33,14 +33,8 @@ public class PetMoving : PetAbs
         {
             if (this.petCtrl.GameCtrl.PlayerCtrl.PlayerMoving.IsMoving)
             {
-                //agent.SetDestination(this.petCtrl.GameCtrl.PlayerCtrl.transform.position);
                 agent.SetDestination(hit.position);
                 this.isMoving = true;
-
-                //if (agent.remainingDistance > 20)
-                //{
-                //    //this.transform.parent.position = this.petCtrl.GameCtrl.PlayerCtrl.transform.position;
-                //}
                 return;
             }
         }

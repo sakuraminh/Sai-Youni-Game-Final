@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyPrefabCtrl : MMonoBehaviour
 {
@@ -34,6 +35,12 @@ public class EnemyPrefabCtrl : MMonoBehaviour
     [SerializeField] protected Animator animator;
     public Animator Animator => animator;
 
+    [SerializeField] protected NavMeshAgent meshAgent;
+    public NavMeshAgent MeshAgent => meshAgent;
+
+    [SerializeField] protected EnemyRadarAttack enemyRadarAttack;
+    public EnemyRadarAttack EnemyRadarAttack => enemyRadarAttack;
+
 
     #region LoadComponents
     protected override void LoadComponents()
@@ -49,6 +56,22 @@ public class EnemyPrefabCtrl : MMonoBehaviour
         this.LoadAttackPoint();
         this.LoadEnemyAttack();
         this.LoadAnimator();
+        this.LoadMeshAgent();
+        this.LoadEnemyRadarAttack();
+    }
+
+    protected virtual void LoadEnemyRadarAttack()
+    {
+        if (this.enemyRadarAttack != null) return;
+        this.enemyRadarAttack = this.GetComponentInChildren<EnemyRadarAttack>();
+        Debug.Log(transform.name + ": LoadEnemyRadarAttack", gameObject);
+    }
+
+    protected virtual void LoadMeshAgent()
+    {
+        if (this.meshAgent != null) return;
+        this.meshAgent = this.GetComponent<NavMeshAgent>();
+        Debug.Log(transform.name + ": LoadMeshAgent", gameObject);
     }
 
     protected virtual void LoadAnimator()
