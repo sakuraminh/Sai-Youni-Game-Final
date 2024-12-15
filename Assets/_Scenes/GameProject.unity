@@ -13399,6 +13399,103 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &507687849
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 507687850}
+  - component: {fileID: 507687851}
+  - component: {fileID: 507687853}
+  - component: {fileID: 507687852}
+  m_Layer: 0
+  m_Name: SenDamePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &507687850
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507687849}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.027, y: 0.303, z: 0.057}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1729778128423479174}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!135 &507687851
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507687849}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 1
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &507687852
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507687849}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b5f6665422a27c5428d3dd3acad486f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dame: 100
+  rb: {fileID: 507687853}
+  _collider: {fileID: 507687851}
+--- !u!54 &507687853
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 507687849}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &508382973
 GameObject:
   m_ObjectHideFlags: 0
@@ -14734,7 +14831,7 @@ GameObject:
   m_Component:
   - component: {fileID: 589481701}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: HP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14964,8 +15061,8 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Radius: 2
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!114 &606505278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14991,7 +15088,7 @@ GameObject:
   m_Component:
   - component: {fileID: 610402551}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: MP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16801,6 +16898,7 @@ MonoBehaviour:
   playerRadar: {fileID: 2116868879}
   gameCtrl: {fileID: 507095610}
   playerSelect: {fileID: 1966396343}
+  playerDameReceive: {fileID: 0}
 --- !u!54 &696587228
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -20416,8 +20514,8 @@ MonoBehaviour:
   isDead: 0
   enemyCtrl: {fileID: 901738749}
   prefabCtrl: {fileID: 2097012417}
-  currenHp: 10
-  maxHp: 10
+  currenHp: 1000
+  maxHp: 1000
 --- !u!1001 &872161866
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35066,6 +35164,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1606055547}
+  - component: {fileID: 1606055548}
   m_Layer: 0
   m_Name: PlayerHPUI
   m_TagString: Untagged
@@ -35089,6 +35188,21 @@ Transform:
   - {fileID: 1415920636}
   m_Father: {fileID: 1077134743}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1606055548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1606055546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 372c493433020e34593351e53df42387, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uICtrl: {fileID: 1077134742}
+  sliderHP: {fileID: 1816978208}
+  sliderMP: {fileID: 348188919}
 --- !u!1 &1608041687
 GameObject:
   m_ObjectHideFlags: 0
@@ -36282,8 +36396,8 @@ MonoBehaviour:
   isImmortal: 0
   isHit: 0
   isDead: 0
-  currenHp: 0
-  maxHp: 100
+  currenHp: 1000
+  maxHp: 1000
 --- !u!136 &1635205344
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -49072,6 +49186,7 @@ GameObject:
   m_Component:
   - component: {fileID: 449935260050620325}
   - component: {fileID: 969871581843891488}
+  - component: {fileID: 969871581843891489}
   m_Layer: 0
   m_Name: EnemyModel
   m_TagString: Untagged
@@ -49100,6 +49215,19 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &969871581843891489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 969871581843891487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c249aef80c6dbd45b9932df0f696f52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  senDamePoint: {fileID: 507687852}
 --- !u!224 &975625895386493174
 RectTransform:
   m_ObjectHideFlags: 0
@@ -53393,6 +53521,7 @@ Transform:
   - {fileID: 3698561969479420837}
   - {fileID: 9167273288584347458}
   - {fileID: 8398885605301161136}
+  - {fileID: 507687850}
   m_Father: {fileID: 2461105218987781606}
   m_LocalEulerAnglesHint: {x: 12.31568, y: 12.054628, z: 8.771038}
 --- !u!114 &1742592607703644213

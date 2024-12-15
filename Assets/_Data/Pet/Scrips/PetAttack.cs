@@ -26,14 +26,14 @@ public class PetAttack : PetAbs
         if (petCtrl.GameCtrl.PlayerCtrl.PlayerRadar.TargetNearest != null && !this.petCtrl.GameCtrl.PlayerCtrl.PlayerMoving.IsMoving && this.petCtrl.GameCtrl.PlayerCtrl.PlayerSelect.EnemyChecks.Count == 0)
         {
             this.isAttack = true;
-            //this.Attack(petCtrl.GameCtrl.PlayerCtrl.PlayerRadar.TargetNearest);
+            this.Attack(petCtrl.GameCtrl.PlayerCtrl.PlayerRadar.TargetNearest);
             return;
         }
 
         if (this.petCtrl.GameCtrl.PlayerCtrl.PlayerSelect.EnemyChecks.Count != 0 && !this.petCtrl.GameCtrl.PlayerCtrl.PlayerMoving.IsMoving)
         {
             this.isAttack = true;
-            //this.Attack(this.petCtrl.GameCtrl.PlayerCtrl.PlayerSelect.EnemyChecks[0]);
+            this.Attack(this.petCtrl.GameCtrl.PlayerCtrl.PlayerSelect.EnemyChecks[0]);
             return;
         }
         this.isAttack = false;

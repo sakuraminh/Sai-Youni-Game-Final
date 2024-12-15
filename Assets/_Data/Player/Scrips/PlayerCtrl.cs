@@ -23,8 +23,8 @@ public class PlayerCtrl : MMonoBehaviour
     [SerializeField] protected PlayerSelect playerSelect;
     public PlayerSelect PlayerSelect => this.playerSelect;
 
-
-
+    [SerializeField] protected PlayerDameReceive playerDameReceive;
+    public PlayerDameReceive PlayerDameReceive => this.playerDameReceive;
 
     #region LoadComponents
     protected override void LoadComponents()
@@ -37,6 +37,7 @@ public class PlayerCtrl : MMonoBehaviour
         this.LoadPlayerRadar();
         this.LoadGameCtrl();
         this.LoadPlayerSelect();
+        this.LoadPlayerDameReceive();
     }
 
     protected virtual void LoadPlayerSelect()
@@ -83,6 +84,13 @@ public class PlayerCtrl : MMonoBehaviour
         if (this.playerMoving != null) return;
         this.playerMoving = GetComponentInChildren<PlayerMoving>();
         Debug.Log(transform.name + ": LoadPlayerMoving", gameObject);
+    }
+
+    protected virtual void LoadPlayerDameReceive()
+    {
+        if (this.playerDameReceive != null) return;
+        this.playerDameReceive = GetComponentInChildren<PlayerDameReceive>();
+        Debug.Log(transform.name + ": LoadPlayerDameReceive", gameObject);
     }
     #endregion
 }

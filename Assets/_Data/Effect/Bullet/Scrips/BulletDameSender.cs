@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SphereCollider))]
-public class BulletDameSender : DameSender
+public class BulletDameSender : DameSender<EnemyDameReceive>
 {
     [SerializeField] protected SphereCollider sphereCollider;
     [SerializeField] protected BulletDespawn bulletDespawn;

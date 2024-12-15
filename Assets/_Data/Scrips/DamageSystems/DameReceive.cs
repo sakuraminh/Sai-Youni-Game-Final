@@ -24,7 +24,7 @@ public abstract class DameReceive : MMonoBehaviour
     }
     protected abstract void OnHurt();
     protected abstract void OnDead();
-    public abstract void Receive(int dame, DameSender dameSender);
+    public abstract void Receive(int dame);
     public abstract bool SetIsDead();
     protected abstract void Reborn();
     #region LoadComponents

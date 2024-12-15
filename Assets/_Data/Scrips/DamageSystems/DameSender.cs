@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public abstract class DameSender : MMonoBehaviour
+public abstract class DameSender<T> : MMonoBehaviour where T : DameReceive
 {
     [SerializeField] protected int dame = 2;
     [SerializeField] protected Rigidbody rb;
@@ -17,11 +17,11 @@ public abstract class DameSender : MMonoBehaviour
 
     protected virtual DameReceive SendDamage(Collider collider)
     {
-        DameReceive damageReceiver = collider.GetComponent<DameReceive>();
+        T damageReceiver = collider.GetComponent<T>();
 
         if (damageReceiver == null) return null;
 
-        damageReceiver.Receive(this.dame, this);
+        damageReceiver.Receive(this.dame);
         return damageReceiver;
     }
 

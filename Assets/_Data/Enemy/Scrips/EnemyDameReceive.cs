@@ -20,7 +20,7 @@ public class EnemyDameReceive : DameReceive
     {
         this.OnAnimation(collider);
     }
-    public override void Receive(int dame, DameSender dameSender)
+    public override void Receive(int dame)
     {
         if (!isImmortal) this.currenHp -= dame;
         if (this.currenHp < 0) this.currenHp = 0;

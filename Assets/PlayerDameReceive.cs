@@ -14,7 +14,7 @@ public class PlayerDameReceive : DameReceive
     {
         this.OnAnimation(collider);
     }
-    public override void Receive(int dame, DameSender dameSender)
+    public override void Receive(int dame)
     {
         if (!isImmortal) this.currenHp -= dame;
         if (this.currenHp < 0) this.currenHp = 0;
@@ -45,11 +45,6 @@ public class PlayerDameReceive : DameReceive
 
     protected virtual void SetHitFalse()
     {
-    }
-    protected virtual bool SetHit(Collider collider)
-    {
-        DameSender sender = collider.GetComponent<DameSender>();
-        return this.isHit = sender != null;
     }
     protected virtual void CallDespawn()
     {
