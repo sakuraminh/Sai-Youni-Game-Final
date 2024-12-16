@@ -1,89 +1,196 @@
 
+using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class PetMoving : PetAbs
+public class PetMoving : PetPrefabAbs
 {
-    [SerializeField] protected NavMeshAgent agent;
-    [SerializeField] protected PetAttack petAttack;
-    public PetAttack PetAttack => this.petAttack;
-
     [SerializeField] protected float timer = 0;
-    [SerializeField] protected float delay = 3f;
+    [SerializeField] protected float delay = 10f;
+    [SerializeField] protected float attackCooldown = 1f, attackTimer;
+    [SerializeField] protected Vector3 startPosition;
+    [SerializeField] protected Vector3 patrolPointRandom;
+    [SerializeField] protected bool isMoving, isAttacking;
+    [SerializeField] protected float range = 7, validRange = 5;
 
-    [SerializeField] protected float range = 3f;
-    [SerializeField] protected float validRange = 1f;
+    protected enum EnemyState
+    {
+        Patrolling,
+        Chasing,
+        Attacking,
+        MoveThenAttack
+    }
+    [SerializeField]
+    protected EnemyState currentState;
 
-    [SerializeField] protected bool isMoving = false;
-    public bool IsMoving => this.isMoving = true;
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        this.CheckPatrolPointRandom();
+        this.currentState = EnemyState.Patrolling;
+        this.attackTimer = 5f;
+
+    }
+
+    public virtual void SetstartPosition(Vector3 startPosition)
+    {
+        this.startPosition = startPosition;
+    }
 
     void Update()
     {
-        this.RandomMoving();
+        switch (currentState)
+        {
+            case EnemyState.Patrolling:
+                Patrol();
+                if (this.petCtrl.GameCtrl.PlayerCtrl.PlayerMoving.IsMoving == false)
+                {
+                    if (this.petCtrl.GameCtrl.PlayerCtrl.PlayerRadar.EnemyInAttackRange() == true)
+                    {
+                        this.attackTimer = 5f;
+                        currentState = EnemyState.MoveThenAttack;
+                    }
+                }
+                else
+                {
+                    this.attackTimer = 5f;
+                    currentState = EnemyState.Chasing;
+                }
+                break;
+
+            case EnemyState.Chasing:
+                ChasePlayer();
+                if (this.petCtrl.GameCtrl.PlayerCtrl.PlayerMoving.IsMoving == false)
+                {
+                    if (this.petCtrl.GameCtrl.PlayerCtrl.PlayerRadar.EnemyInAttackRange() == true)
+                    {
+                        this.attackTimer = 5f;
+                        currentState = EnemyState.MoveThenAttack;
+                    }
+                    else currentState = EnemyState.Patrolling;
+                }
+                break;
+
+            case EnemyState.MoveThenAttack:
+                MoveThenAttack();
+                if (this.petCtrl.GameCtrl.PlayerCtrl.PlayerMoving.IsMoving == false)
+                {
+                    if (this.petPrefabCtrl.PetRadarAttack.EnemyInAttackRange() == true)
+                    {
+                        currentState = EnemyState.Attacking;
+                    }
+                    else if (this.petCtrl.GameCtrl.PlayerCtrl.PlayerRadar.EnemyInAttackRange() == false)
+                    {
+                        this.attackTimer = 5f;
+                        currentState = EnemyState.Patrolling;
+                    }
+                }
+                else currentState = EnemyState.Chasing;
+
+                break;
+
+            case EnemyState.Attacking:
+                AttackEnemy();
+                if (this.petCtrl.GameCtrl.PlayerCtrl.PlayerMoving.IsMoving == false)
+                {
+                    if (this.petPrefabCtrl.PetRadarAttack.EnemyInAttackRange() == false)
+                    {
+                        this.attackTimer = 5f;
+                        currentState = EnemyState.MoveThenAttack;
+                    }
+                }
+                else currentState = EnemyState.Chasing;
+                break;
+        }
     }
 
-    public void SetMoving(bool isMoving)
+
+
+    protected virtual void UpdateAnimation(bool isMoving, bool isAttacking)
     {
         this.isMoving = isMoving;
+        this.isAttacking = isAttacking;
+        this.petPrefabCtrl.Animator.SetBool("isMoving", isMoving);
+        this.petPrefabCtrl.Animator.SetBool("isAttacking", isAttacking);
     }
 
-    protected virtual void RandomMoving()
+    protected virtual void UpdateSpeet(float speed, float acceleration)
     {
-        if (NavMesh.SamplePosition(this.petCtrl.GameCtrl.PlayerCtrl.transform.position, out NavMeshHit hit, validRange, NavMesh.AllAreas))
+        this.petPrefabCtrl.NavMeshAgent.speed = speed;
+        this.petPrefabCtrl.NavMeshAgent.acceleration = acceleration;
+    }
+    protected virtual void CheckPatrolPointRandom()
+    {
+        if (isMoving == false)
         {
-            if (this.petCtrl.GameCtrl.PlayerCtrl.PlayerMoving.IsMoving)
-            {
-                agent.SetDestination(hit.position);
-                this.isMoving = true;
-                return;
-            }
-        }
-
-        if (agent.remainingDistance <= agent.stoppingDistance + 1)
-        {
-            this.timer += Time.deltaTime;
-            if (this.timer >= this.delay) this.timer = this.delay;
-            if (this.timer < this.delay) return;
-
+            this.startPosition = this.petCtrl.GameCtrl.PlayerCtrl.transform.position;
 
             if (petCtrl.GameCtrl.Helper.RandomPointOnNavMesh.RandomPoint(this.petCtrl.GameCtrl.PlayerCtrl.transform.position, range, validRange, out Vector3 point))
             {
-                this.timer = 0;
                 Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f);
+                this.patrolPointRandom = point;
+                return;
             }
-            agent.SetDestination(point);
-            this.isMoving = true;
-            return;
+            this.CheckPatrolPointRandom();
         }
-        this.isMoving = false;
     }
-    #region LoadComponents
-    protected override void LoadComponents()
+
+    protected virtual void Patrol()
     {
-        base.LoadComponents();
-        this.LoadNavMeshAgent();
-        this.LoadPetAttack();
-        this.SetAgent();
+        if (Vector3.Distance(transform.parent.position, patrolPointRandom) < 0.1f)
+        {
+            this.UpdateAnimation(false, false);
+            if (this.timer < this.delay)
+            {
+                this.timer += Time.deltaTime;
+                return;
+            }
+
+            CheckPatrolPointRandom();
+            this.timer = 0;
+        }
+        this.petPrefabCtrl.NavMeshAgent.SetDestination(patrolPointRandom);
+        this.UpdateSpeet(1.5f, 5);
+        this.UpdateAnimation(true, false);
+
     }
-    protected virtual void SetAgent()
+
+    protected virtual void ChasePlayer()
     {
-        agent.acceleration = float.MaxValue;
-        agent.autoBraking = false;
-        agent.stoppingDistance = 0;
-        agent.angularSpeed = float.MaxValue;
-        agent.speed = 8;
+        this.UpdateSpeet(5, 5);
+        this.UpdateAnimation(true, false);
+        this.patrolPointRandom = this.petCtrl.GameCtrl.PlayerCtrl.transform.position;
+        this.petPrefabCtrl.NavMeshAgent.SetDestination(patrolPointRandom);
+
+        Vector3 distance = this.petCtrl.GameCtrl.PlayerCtrl.transform.position - transform.parent.position;
+        if (distance.magnitude > 20)
+        {
+            this.transform.parent.position = this.petCtrl.GameCtrl.PlayerCtrl.transform.position;
+        }
     }
-    protected virtual void LoadNavMeshAgent()
+    protected virtual void MoveThenAttack()
     {
-        if (this.agent != null) return;
-        this.agent = GetComponentInParent<NavMeshAgent>();
-        Debug.Log(transform.name + ": LoadNavMeshAgent", gameObject);
+        this.UpdateSpeet(3, 5);
+        this.UpdateAnimation(true, false);
+        if (this.petCtrl.GameCtrl.PlayerCtrl.PlayerRadar.EnemyInAttackRange() == false) return;
+        this.petPrefabCtrl.NavMeshAgent.SetDestination(this.petCtrl.GameCtrl.PlayerCtrl.PlayerRadar.TargetNearest.transform.parent.position);
     }
-    protected virtual void LoadPetAttack()
+    private void AttackEnemy()
     {
-        if (this.petAttack != null) return;
-        this.petAttack = transform.parent.GetComponentInChildren<PetAttack>();
-        Debug.Log(transform.name + ": LoadPetAttack", gameObject);
+        float timeAnimation = 3f;
+
+        this.petPrefabCtrl.NavMeshAgent.SetDestination(transform.parent.position);
+        this.UpdateAnimation(false, false);
+
+        attackTimer += Time.deltaTime;
+
+        if (attackTimer >= attackCooldown + timeAnimation)
+        {
+            transform.parent.LookAt(this.PetPrefabCtrl.PetRadarAttack.TargetNearest.transform.parent.position);
+            this.PetPrefabCtrl.Animator.SetInteger("AttackIndex", Random.Range(0, 2));
+            this.PetPrefabCtrl.Animator.SetTrigger("Attack");
+            this.UpdateAnimation(false, true);
+            attackTimer = 0f;
+        }
     }
-    #endregion
 }
