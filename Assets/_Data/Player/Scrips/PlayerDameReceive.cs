@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class PlayerDameReceive : DameReceive
 {
-    [SerializeField] protected int currenHp = 0;
-    public int CurrentHp => this.currenHp;
+    [SerializeField] protected float currenHp = 0;
+    public float CurrentHp => this.currenHp;
 
     [SerializeField] protected int maxHp = 100;
     public int MaxHp => this.maxHp;
@@ -71,6 +71,12 @@ public class PlayerDameReceive : DameReceive
 
         //    enemySpawnArea.Enemies.Remove(targetCheck.transform.parent.GetComponent<Enemy>());
         //}
+    }
+
+    public virtual void Heal(float value)
+    {
+        this.currenHp += value;
+        if (this.currenHp > this.maxHp) this.currenHp = this.maxHp;
     }
     protected override void Reborn()
     {

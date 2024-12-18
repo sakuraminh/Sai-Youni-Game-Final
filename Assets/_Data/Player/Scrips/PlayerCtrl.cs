@@ -26,6 +26,12 @@ public class PlayerCtrl : MMonoBehaviour
     [SerializeField] protected PlayerDameReceive playerDameReceive;
     public PlayerDameReceive PlayerDameReceive => this.playerDameReceive;
 
+    [SerializeField] protected PlayerSenEffectPoint playerSenEffectPoint;
+    public PlayerSenEffectPoint PlayerSenEffectPoint => this.playerSenEffectPoint;
+
+    [SerializeField] protected PlayerAttack playerAttack;
+    public PlayerAttack PlayerAttack => this.playerAttack;
+
     #region LoadComponents
     protected override void LoadComponents()
     {
@@ -38,6 +44,22 @@ public class PlayerCtrl : MMonoBehaviour
         this.LoadGameCtrl();
         this.LoadPlayerSelect();
         this.LoadPlayerDameReceive();
+        this.LoadPlayerSenEffectPoint();
+        this.LoadPlayerAttack();
+    }
+
+    protected virtual void LoadPlayerAttack()
+    {
+        if (this.playerAttack != null) return;
+        this.playerAttack = GetComponentInChildren<PlayerAttack>();
+        Debug.Log(transform.name + ": LoadPlayerAttack", gameObject);
+    }
+
+    protected virtual void LoadPlayerSenEffectPoint()
+    {
+        if (this.playerSenEffectPoint != null) return;
+        this.playerSenEffectPoint = GetComponentInChildren<PlayerSenEffectPoint>();
+        Debug.Log(transform.name + ": LoadPlayerSenEffectPoint", gameObject);
     }
 
     protected virtual void LoadPlayerSelect()
@@ -63,7 +85,7 @@ public class PlayerCtrl : MMonoBehaviour
     protected virtual void LoadAnimator()
     {
         if (this.animator != null) return;
-        this.animator = transform.Find("Model").GetComponent<Animator>();
+        this.animator = transform.Find("PlayerModel").GetComponent<Animator>();
         Debug.Log(transform.name + ": LoadAnimator", gameObject);
     }
     protected virtual void LoadRigidbody()

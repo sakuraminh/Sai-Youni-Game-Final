@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class PetAttack : PetPrefabAbs
 {
-    [SerializeField] protected PetMoving petMoving;
-    public PetMoving PetMoving => this.petMoving;
-
     [SerializeField] protected string BulletName = "Bullet01";
 
     [SerializeField] protected Effect bullet;
     public virtual void Attack(EnemyCheck enemyCheck)
     {
+        if (enemyCheck == null)
+        {
+            Debug.Log("enemyCheck is null");
+            return;
+        }
         Effect bulletPrefab = this.GetBulletPrefabByName();
         this.bullet = bulletPrefab;
         if (bulletPrefab == null)
@@ -34,16 +36,5 @@ public class PetAttack : PetPrefabAbs
         return null;
     }
     #region LoadComponents
-    protected override void LoadComponents()
-    {
-        base.LoadComponents();
-        this.LoadPetMoving();
-    }
-    protected virtual void LoadPetMoving()
-    {
-        if (this.petMoving != null) return;
-        this.petMoving = transform.parent.GetComponentInChildren<PetMoving>();
-        Debug.Log(transform.name + ": LoadPetMoving", gameObject);
-    }
     #endregion
 }

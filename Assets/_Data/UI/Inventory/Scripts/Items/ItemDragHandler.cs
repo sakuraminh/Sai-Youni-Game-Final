@@ -80,8 +80,7 @@ public class ItemDragHandler : MMonoBehaviour, IPointerDownHandler, IDragHandler
         {
             InventoryItem item = ItemSlotUI.SlotItem as InventoryItem;
             InventorySlot inventorySlot = ItemSlotUI as InventorySlot;
-            uICtrl.GameCtrl.InventoryCtrl.InventoryItems.RemoveItem(item, 1, inventorySlot.SlotIndex);
-
+            uICtrl.GameCtrl.InventoryCtrl.InventoryItems.UseItem(item, 1, inventorySlot.SlotIndex);
             //Debug.Log("Right Click");
         }
     }

@@ -5,6 +5,7 @@ using System.Diagnostics;
 public class ItemContainer : IItemContainer
 {
     private ItemSlot[] itemSlots = new ItemSlot[0];
+    public ItemSlot[] ItemSlots => this.itemSlots;
 
     public Action OnItemsUpdated = delegate { };
 

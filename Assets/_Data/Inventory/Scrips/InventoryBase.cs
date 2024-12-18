@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 public class InventoryBase : MMonoBehaviour
 {
     [SerializeField] protected VoidEvent onInventoryItemsUpdated;
     [SerializeField] protected ItemSlot testItemSlot = new ItemSlot();
+    [SerializeField] protected GameObject Player;
 
     public ItemContainer ItemContainer { get; } = new ItemContainer(100);
 
@@ -25,9 +27,14 @@ public class InventoryBase : MMonoBehaviour
         ItemContainer.AddItem(new ItemSlot(item, quatity));
     }
 
-    public virtual void RemoveItem(InventoryItem item, int quatity, int index)
+    public virtual void UseItem(InventoryItem item, int quatity, int index)
     {
-        ItemContainer.RemoveItemAt(new ItemSlot(item, quatity), index);
+        if (index >= 0 && index < ItemContainer.ItemSlots.Length)
+        {
+            ItemContainer.ItemSlots[index].item.Use(Player);
+            ItemContainer.RemoveItemAt(new ItemSlot(item, quatity), index);
+        }
+
     }
 }
 

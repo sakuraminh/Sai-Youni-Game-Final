@@ -9,7 +9,7 @@ public class AnimationEvent : MMonoBehaviour
     public virtual void StartAttack()
     {
         this.senDamePoint.gameObject.SetActive(true);
-        Debug.Log("StartAttack");
+        //Debug.Log("StartAttack");
     }
     public virtual void EndAttack()
     {

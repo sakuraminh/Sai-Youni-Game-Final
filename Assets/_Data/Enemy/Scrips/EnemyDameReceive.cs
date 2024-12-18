@@ -59,6 +59,12 @@ public class EnemyDameReceive : DameReceive
         this.RemoveTargetCheckFromEnemySpawnAreas(this.prefabCtrl.EnemyCheck);
         this.RemoveTargetCheckFromPlayer(this.prefabCtrl.EnemyCheck);
         this.RemoveTargetCheckFromPlayerSelect(this.prefabCtrl.EnemyCheck);
+        this.RemoveTargetCheckFromPet(this.prefabCtrl.EnemyCheck);
+    }
+
+    protected virtual void RemoveTargetCheckFromPet(EnemyCheck targetCheck)
+    {
+        this.prefabCtrl.EnemyCtrl.GameCtrl.PetCtrl.PetRadarAttack.TargetChecks.Remove(targetCheck);
     }
     protected virtual void RemoveTargetCheckFromPlayer(EnemyCheck targetCheck)
     {

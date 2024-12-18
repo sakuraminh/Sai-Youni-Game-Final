@@ -6,6 +6,6 @@ public class HP : Item
 {
     public override string GetName()
     {
-        return "HP";
+        return "SmallHP";
     }
 }

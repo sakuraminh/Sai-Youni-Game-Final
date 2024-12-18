@@ -14,6 +14,8 @@ public class EnemyMoving : EnemyPrefabAbs
     [SerializeField] protected bool isMoving;
     [SerializeField] protected bool isAttacking;
 
+    [SerializeField] protected float range = 7, validRange = 5;
+
     protected enum EnemyState
     {
         Patrolling,
@@ -28,7 +30,7 @@ public class EnemyMoving : EnemyPrefabAbs
     {
         base.OnEnable();
         startPosition = transform.position;
-        SetRandomPatrolPoint();
+        this.CheckPatrolPointRandom();
         currentState = EnemyState.Patrolling;
         attackTimer = 5f;
 
@@ -104,7 +106,7 @@ public class EnemyMoving : EnemyPrefabAbs
                 return;
             }
 
-            SetRandomPatrolPoint();
+            CheckPatrolPointRandom();
             this.timer = 0;
         }
         this.EnemyPrefabCtrl.MeshAgent.SetDestination(randomPatrolPoint);
@@ -136,8 +138,6 @@ public class EnemyMoving : EnemyPrefabAbs
 
         if (attackTimer >= attackCooldown + timeAnimation)
         {
-            Debug.Log("Enemy attacks!");
-            //this.EnemyPrefabCtrl.EnemyAttack.Attack(this.EnemyPrefabCtrl.EnemyRadarAttack.TargetNearest);
             this.UpdateAnimation(false, true);
             attackTimer = 0f;
         }
@@ -152,6 +152,20 @@ public class EnemyMoving : EnemyPrefabAbs
         {
             this.UpdateSpeet(1, 5);
             currentState = EnemyState.Patrolling;
+        }
+    }
+
+    protected virtual void CheckPatrolPointRandom()
+    {
+        if (isMoving == false)
+        {
+            if (EnemyCtrl.GameCtrl.Helper.RandomPointOnNavMesh.RandomPoint(startPosition, range, validRange, out Vector3 point))
+            {
+                Debug.DrawRay(point, Vector3.up, Color.blue, 1.0f);
+                this.randomPatrolPoint = point;
+                return;
+            }
+            this.CheckPatrolPointRandom();
         }
     }
 }

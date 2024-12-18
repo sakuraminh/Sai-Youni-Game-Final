@@ -8,7 +8,7 @@ public class ItemPrefab : PoolPrefabs<Item>
     {
         foreach (Item prefab in this.Prefabs)
         {
-            if (prefab.name != name) continue;
+            if (prefab.GetName() != name) continue;
             return prefab;
         }
         return null;

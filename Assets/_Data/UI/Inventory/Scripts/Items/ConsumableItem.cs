@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using UnityEngine;
+using static UnityEngine.Rendering.DebugUI;
 
 [CreateAssetMenu(fileName = "New Consumable Item", menuName = "Items/Consumable Item")]
 public class ConsumableItem : InventoryItem
@@ -17,6 +18,18 @@ public class ConsumableItem : InventoryItem
         builder.Append("Sell Price: ").Append(SellPrice).Append(" Gold");
 
         return builder.ToString();
+    }
+
+    public override void Use(GameObject user)
+    {
+        if (behavior != null)
+        {
+            behavior.Execute(user, value);
+        }
+        else
+        {
+            Debug.LogWarning("Item không có hành vi được gắn.");
+        }
     }
 }
 
