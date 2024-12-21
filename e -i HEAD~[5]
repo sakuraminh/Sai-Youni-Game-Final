@@ -1,0 +1,124 @@
+[33mcommit e295223fe429d3ce842c5c81fae8cee07bbb5e60[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: sakuraminh <minh.freedom.happy@gmail.com>
+Date:   Sun Dec 22 00:35:26 2024 +0900
+
+    Final
+
+ Assets/_Data/Sound/Sound/Soud_Final/Backgroud d.wav | Bin [31m46080240[m -> [32m0[m bytes
+ 1 file changed, 0 insertions(+), 0 deletions(-)
+
+[33mcommit f58091d11909d8748fc69e12321cfaa8f308c4cc[m
+Author: sakuraminh <minh.freedom.happy@gmail.com>
+Date:   Sun Dec 22 00:22:56 2024 +0900
+
+    finish
+
+ Assets/Terrain/Final.asset                         |   Bin [31m1962456[m -> [32m1962428[m bytes
+ Assets/TerrainSampleAssets.meta                    |     8 [31m-[m
+ Assets/TerrainSampleAssets/Materials.meta          |     8 [31m-[m
+ Assets/TerrainSampleAssets/Materials/Bush.asset    |   210 [31m-[m
+ .../TerrainSampleAssets/Materials/Bush.asset.meta  |     8 [31m-[m
+ Assets/TerrainSampleAssets/Materials/BushDry.asset |   210 [31m-[m
+ .../Materials/BushDry.asset.meta                   |     8 [31m-[m
+ Assets/TerrainSampleAssets/Materials/Fern.asset    |   210 [31m-[m
+ .../TerrainSampleAssets/Materials/Fern.asset.meta  |     8 [31m-[m
+ Assets/TerrainSampleAssets/Materials/Grass.asset   |   210 [31m-[m
+ .../TerrainSampleAssets/Materials/Grass.asset.meta |     8 [31m-[m
+ .../TerrainSampleAssets/Materials/GrassDry.asset   |   209 [31m-[m
+ .../Materials/GrassDry.asset.meta                  |     8 [31m-[m
+ Assets/TerrainSampleAssets/Materials/Grass_C.asset |   210 [31m-[m
+ .../Materials/Grass_C.asset.meta                   |     8 [31m-[m
+ Assets/TerrainSampleAssets/Materials/Heather.asset |   258 [31m-[m
+ .../Materials/Heather.asset.meta                   |     8 [31m-[m
+ Assets/TerrainSampleAssets/Materials/Plant.asset   |   210 [31m-[m
+ .../TerrainSampleAssets/Materials/Plant.asset.meta |     8 [31m-[m
+ Assets/TerrainSampleAssets/Models.meta             |     8 [31m-[m
+ Assets/TerrainSampleAssets/Models/BushDry_A.asset  |   166 [31m-[m
+ .../Models/BushDry_A.asset.meta                    |     8 [31m-[m
+ Assets/TerrainSampleAssets/Models/BushDry_B.asset  |   166 [31m-[m
+ .../Models/BushDry_B.asset.meta                    |     8 [31m-[m
+ Assets/TerrainSampleAssets/Models/Bush_A.asset     |   166 [31m-[m
+ .../TerrainSampleAssets/Models/Bush_A.asset.meta   |     8 [31m-[m
+ Assets/TerrainSampleAssets/Models/Bush_B.asset     |   166 [31m-[m
+ .../TerrainSampleAssets/Models/Bush_B.asset.meta   |     8 [31m-[m
+ Assets/TerrainSampleAssets/Models/Fern_A.asset     |   166 [31m-[m
+ .../TerrainSampleAssets/Models/Fern_A.asset.meta   |     8 [31m-[m
+ Assets/TerrainSampleAssets/Models/Fern_B.asset     |   166 [31m-[m
+ .../TerrainSampleAssets/Models/Fern_B.asset.meta   |     8 [31m-[m
+ Assets/TerrainSampleAssets/Models/Fern_C.asset     |   166 [31m-[m
+ .../TerrainSampleAssets/Models/Fern_C.asset.meta   |     8 [31m-[m
+ Assets/TerrainSampleAssets/Models/GrassDry_A.asset |   166 [31m-[m
+ .../Models/GrassDry_A.asset.meta                   |     8 [31m-[m
+ Assets/TerrainSampleAssets/Models/GrassDry_B.asset |   166 [31m-[m
+ .../Models/GrassDry_B.asset.meta                   |     8 [31m-[m
+ Assets/TerrainSampleAssets/Models/GrassDry_C.asset |   166 [31m-[m
+ .../Models/GrassDry_C.asset.meta                   |     8 [31m-[m
+ Assets/TerrainSampleAssets/Models/Grass_A.asset    |   166 [31m-[m
+ .../TerrainSampleAssets/Models/Grass_A.asset.meta  |     8 [31m-[m
+ Assets/TerrainSampleAssets/Models/Grass_B.asset    |   166 [31m-[m
+ .../TerrainSampleAssets/Models/Grass_B.asset.meta  |     8 [31m-[m
+ Assets/TerrainSampleAssets/Models/Grass_C.asset    |   166 [31m-[m
+ .../TerrainSampleAssets/Models/Grass_C.asset.meta  |     8 [31m-[m
+ Assets/TerrainSampleAssets/Models/Grass_D.asset    |   166 [31m-[m
+ .../TerrainSampleAssets/Models/Grass_D.asset.meta  |     8 [31m-[m
+ Assets/TerrainSampleAssets/Models/Heather_A.asset  |   166 [31m-[m
+ .../Models/Heather_A.asset.meta                    |     8 [31m-[m
+ Assets/TerrainSampleAssets/Models/Heather_B.asset  |   166 [31m-[m
+ .../Models/Heather_B.asset.meta                    |     8 [31m-[m
+ Assets/TerrainSampleAssets/Models/Plant_A.asset    |   166 [31m-[m
+ .../TerrainSampleAssets/Models/Plant_A.asset.meta  |     8 [31m-[m
+ Assets/TerrainSampleAssets/Models/Plant_B.asset    |   166 [31m-[m
+ .../TerrainSampleAssets/Models/Plant_B.asset.meta  |     8 [31m-[m
+ Assets/TerrainSampleAssets/Models/Plant_C.asset    |   166 [31m-[m
+ .../TerrainSampleAssets/Models/Plant_C.asset.meta  |     8 [31m-[m
+ Assets/TerrainSampleAssets/Models/Plant_D.asset    |   166 [31m-[m
+ .../TerrainSampleAssets/Models/Plant_D.asset.meta  |     8 [31m-[m
+ Assets/TerrainSampleAssets/Prefabs.meta            |     8 [31m-[m
+ .../TerrainSampleAssets/Prefabs/BushDry_A.prefab   |    85 [31m-[m
+ .../Prefabs/BushDry_A.prefab.meta                  |     7 [31m-[m
+ .../TerrainSampleAssets/Prefabs/BushDry_B.prefab   |    85 [31m-[m
+ .../Prefabs/BushDry_B.prefab.meta                  |     7 [31m-[m
+ Assets/TerrainSampleAssets/Prefabs/Bush_A.prefab   |    85 [31m-[m
+ .../TerrainSampleAssets/Prefabs/Bush_A.prefab.meta |     7 [31m-[m
+ Assets/TerrainSampleAssets/Prefabs/Bush_B.prefab   |    85 [31m-[m
+ .../TerrainSampleAssets/Prefabs/Bush_B.prefab.meta |     7 [31m-[m
+ Assets/TerrainSampleAssets/Prefabs/Fern_A.prefab   |    85 [31m-[m
+ .../TerrainSampleAssets/Prefabs/Fern_A.prefab.meta |     7 [31m-[m
+ Assets/TerrainSampleAssets/Prefabs/Fern_B.prefab   |    85 [31m-[m
+ .../TerrainSampleAssets/Prefabs/Fern_B.prefab.meta |     7 [31m-[m
+ Assets/TerrainSampleAssets/Prefabs/Fern_C.prefab   |    85 [31m-[m
+ .../TerrainSampleAssets/Prefabs/Fern_C.prefab.meta |     7 [31m-[m
+ .../TerrainSampleAssets/Prefabs/GrassDry_A.prefab  |    85 [31m-[m
+ .../Prefabs/GrassDry_A.prefab.meta                 |     7 [31m-[m
+ .../TerrainSampleAssets/Prefabs/GrassDry_B.prefab  |    85 [31m-[m
+ .../Prefabs/GrassDry_B.prefab.meta                 |     7 [31m-[m
+ .../TerrainSampleAssets/Prefabs/GrassDry_C.prefab  |    85 [31m-[m
+ .../Prefabs/GrassDry_C.prefab.meta                 |     7 [31m-[m
+ Assets/TerrainSampleAssets/Prefabs/Grass_A.prefab  |    85 [31m-[m
+ .../Prefabs/Grass_A.prefab.meta                    |     7 [31m-[m
+ Assets/TerrainSampleAssets/Prefabs/Grass_B.prefab  |    85 [31m-[m
+ .../Prefabs/Grass_B.prefab.meta                    |     7 [31m-[m
+ Assets/TerrainSampleAssets/Prefabs/Grass_C.prefab  |    85 [31m-[m
+ .../Prefabs/Grass_C.prefab.meta                    |     7 [31m-[m
+ Assets/TerrainSampleAssets/Prefabs/Grass_D.prefab  |    85 [31m-[m
+ .../Prefabs/Grass_D.prefab.meta                    |     7 [31m-[m
+ .../TerrainSampleAssets/Prefabs/Heather_A.prefab   |    85 [31m-[m
+ .../Prefabs/Heather_A.prefab.meta                  |     7 [31m-[m
+ .../TerrainSampleAssets/Prefabs/Heather_B.prefab   |    85 [31m-[m
+ .../Prefabs/Heather_B.prefab.meta                  |     7 [31m-[m
+ Assets/TerrainSampleAssets/Prefabs/Plant_A.prefab  |    85 [31m-[m
+ .../Prefabs/Plant_A.prefab.meta                    |     7 [31m-[m
+ Assets/TerrainSampleAssets/Prefabs/Plant_B.prefab  |    85 [31m-[m
+ .../Prefabs/Plant_B.prefab.meta                    |     7 [31m-[m
+ Assets/TerrainSampleAssets/Prefabs/Plant_C.prefab  |    85 [31m-[m
+ .../Prefabs/Plant_C.prefab.meta                    |     7 [31m-[m
+ Assets/TerrainSampleAssets/Prefabs/Plant_D.prefab  |    85 [31m-[m
+ .../Prefabs/Plant_D.prefab.meta                    |     7 [31m-[m
+ Assets/TerrainSampleAssets/README.pdf              |   Bin [31m10201155[m -> [32m0[m bytes
+ Assets/TerrainSampleAssets/README.pdf.meta         |     7 [31m-[m
+ Assets/TerrainSampleAssets/Settings.meta           |     8 [31m-[m
+ .../Settings/FoliageDiffusionProfile.asset         |    24 [31m-[m
+ .../Settings/FoliageDiffusionProfile.asset.meta    |     8 [31m-[m
+ .../Settings/HeightmapTexture.preset               |   419 [31m-[m
+ .../Settings/HeightmapTexture.preset.meta          |     8 [31m-[m
+ Assets/TerrainSampleAssets/ShaderGraphs.meta       |   
